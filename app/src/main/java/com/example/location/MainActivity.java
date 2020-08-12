@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -63,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     private void SetAnimationBG() {
         AnimationDrawable animationDrawable = (AnimationDrawable) imgBg.getDrawable();
-        animationDrawable.setEnterFadeDuration(100);
-        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(3000);
         animationDrawable.start();
     }
 
@@ -72,5 +73,9 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     public void onItemClick(Object o) {
         Menu data= (Menu) o;
         Log.d("TAG", "onItemClick: "+data.toString() );
+        Intent intent= new Intent(MainActivity.this,CameraUserActivity.class);
+        intent.putExtra("item",data);
+        startActivity(intent);
     }
+
 }
