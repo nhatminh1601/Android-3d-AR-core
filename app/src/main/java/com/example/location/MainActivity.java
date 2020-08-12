@@ -1,17 +1,76 @@
 package com.example.location;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.location.adapters.MenuAdapter;
+import com.example.location.helpers.TempData;
+import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.models.Menu;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements OnItemClickListener {
+    ImageView imgBg;
+    RecyclerView recyclerView;
+    MenuAdapter menuAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    TempData data;
+    ArrayList<Menu> dataMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+        SetViewId();
+        SetAnimationBG();
+        SetAdapter();
+
+
+    }
+
+    private void SetViewId() {
+        imgBg = findViewById(R.id.imgBg);
+        recyclerView = findViewById(R.id.lvMenu);
+    }
+
+    private void SetAdapter() {
+        data = new TempData();
+        dataMenu = new ArrayList<>();
+        dataMenu = data.GetData();
+        layoutManager= new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager);
+        menuAdapter= new MenuAdapter(dataMenu, this);
+
+        recyclerView.setAdapter(menuAdapter);
+        recyclerView.setHasFixedSize(true);
+    }
+
+    private void SetAnimationBG() {
+        AnimationDrawable animationDrawable = (AnimationDrawable) imgBg.getDrawable();
+        animationDrawable.setEnterFadeDuration(100);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+    }
+
+    @Override
+    public void onItemClick(Object o) {
+        Menu data= (Menu) o;
+        Log.d("TAG", "onItemClick: "+data.toString() );
     }
 }

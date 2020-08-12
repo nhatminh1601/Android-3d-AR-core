@@ -1,4 +1,4 @@
-package com.example.location.model;
+package com.example.location.models;
 
 import java.io.Serializable;
 
