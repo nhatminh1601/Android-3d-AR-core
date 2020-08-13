@@ -1,5 +1,7 @@
 package com.example.location;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,20 +24,47 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
         extUsername = findViewById(R.id.extUsername);
+        extUsername.requestFocus();
         extPassword = findViewById(R.id.extPassword);
         btnAccess = findViewById(R.id.btnAccess);
         btnAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (authenticate(extUsername.getText().toString(), extPassword.getText().toString())) {
-                    Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
-                    startActivity(intent);
-                }
+                authenticate(extUsername.getText().toString(), extPassword.getText().toString());
             }
         });
     }
 
     private boolean authenticate(String username, String password) {
-        return ADMIN_NAME.equals(username) && ADMIN_PASS.equals(password);
+        if (!checkEmpty(username, password)) {
+            return false;
+        }
+
+        if (ADMIN_NAME.equals(username) && ADMIN_PASS.equals(password)) {
+            Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        new AlertDialog.Builder(LoginActivity.this)
+                .setTitle("Thông báo")
+                .setMessage("Username hoặc password không chính xác!")
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+        extUsername.requestFocus();
+        return false;
+    }
+
+    private boolean checkEmpty(String username, String password) {
+        if (username.isEmpty() || password.isEmpty()) {
+            new AlertDialog.Builder(LoginActivity.this)
+                    .setTitle("Thông báo")
+                    .setMessage("Vui lòng nhập vào username & password!")
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+            extUsername.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

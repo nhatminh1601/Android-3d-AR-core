@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Location</string>
+    <string name="headName">ROOM</string>
+    <string name="subName">FINDER</string>
 </resources>
