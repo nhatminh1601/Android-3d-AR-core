@@ -23,11 +23,14 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".AdminActivity"></activity>
-        <activity android:name=".PlacesActivity"></activity>
-        <activity android:name=".PlaceActivity"></activity>
+        <activity android:name=".PlacesActivity" android:theme="@style/TooBar"></activity>
+        <activity android:name=".PlaceActivity" android:theme="@style/TooBar"></activity>
         <activity android:name=".CameraAdminActivity"></activity>
         <activity android:name=".CameraUserActivity" />
         <meta-data android:name="com.google.ar.core" android:value="required" />
+        <meta-data
+            android:name="com.google.android.ar.API_KEY"
+            android:value="AIzaSyAEDbwcHfxrK8SzBwcHW9To54i95rWo8yE" />
     </application>
 
 </manifest>

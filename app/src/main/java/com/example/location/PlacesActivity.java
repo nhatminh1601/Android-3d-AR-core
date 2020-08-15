@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +28,18 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     MenuAdapter menuAdapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<Place> dataPlaces = new ArrayList<>();
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Danh sách phòng");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.places_main);
         getPlaces();
         recyclerView = findViewById(R.id.lvMenu);
+
     }
 
     private void getPlaces() {
@@ -42,7 +49,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
                 dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Place place = child.getValue(Place.class);
-                    if(place != null){
+                    if (place != null) {
                         dataPlaces.add(place);
                     }
                 }
@@ -58,9 +65,9 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     }
 
     private void SetAdapter() {
-        layoutManager= new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        menuAdapter= new MenuAdapter(dataPlaces, this);
+        menuAdapter = new MenuAdapter(dataPlaces, this, 1);
 
         recyclerView.setAdapter(menuAdapter);
         recyclerView.setHasFixedSize(true);
@@ -69,10 +76,16 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     @Override
     public void onItemClick(Object o) {
         Place data = (Place) o;
-        Log.d("TAG", "onItemClick: "+data.toString() );
+        Log.d("TAG", "onItemClick: " + data.toString());
         Intent intent = new Intent(this, PlaceActivity.class);
         intent.putExtra("placeData", data);
         startActivity(intent);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 }

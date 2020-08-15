@@ -1,5 +1,6 @@
 package com.example.location.adapters;
 
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,16 +23,28 @@ import java.util.ArrayList;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
     ArrayList<Place> arr;
     private OnItemClickListener onItemClickListener;
+    int type;
 
     public MenuAdapter(ArrayList<Place> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
+        type=0;
+    }
+
+    public MenuAdapter(ArrayList<Place> arr, OnItemClickListener onItemClickListener, int type) {
+        this.arr = arr;
+        this.onItemClickListener = onItemClickListener;
+        this.type = type;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main, parent, false);
+        int layout=R.layout.item_main;
+        if(type==1){
+            layout= R.layout.item_admin;
+        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }

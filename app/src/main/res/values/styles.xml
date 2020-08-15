@@ -6,6 +6,12 @@
         <item name="colorPrimaryDark">#4A148C</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="TooBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#03A9F4</item>
+        <item name="colorPrimaryDark">#2196F3</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>

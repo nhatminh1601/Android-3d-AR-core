@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,22 +27,27 @@ import java.util.ArrayList;
 
 public class PlaceActivity extends AppCompatActivity implements OnItemClickListener {
     DatabaseReference placesRef = FirebaseDatabase.getInstance().getReference("places");
+    ArrayList<Place> dataPlaces = new ArrayList<>();
+    Place data;
     CustomAlertDialog alertDialog;
 
-    Place data;
     RecyclerView recyclerView;
     MenuAdapter menuAdapter;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<Place> dataPlaces = new ArrayList<>();
+
     TextView extName;
     TextView extDesc;
     TextView extUrl;
     Button btnSave;
     Button btnDelete;
-
+    ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Phòng");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.place_main);
         alertDialog = new CustomAlertDialog(this);
         data = (Place) getIntent().getSerializableExtra("placeData");
@@ -77,8 +83,8 @@ public class PlaceActivity extends AppCompatActivity implements OnItemClickListe
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (int i=0; i < dataPlaces.size(); i++){
-                            if (id == dataPlaces.get(i).getId()){
+                        for (int i = 0; i < dataPlaces.size(); i++) {
+                            if (id == dataPlaces.get(i).getId()) {
                                 dataPlaces.remove(i);
                                 break;
                             }
@@ -95,19 +101,19 @@ public class PlaceActivity extends AppCompatActivity implements OnItemClickListe
                 .show();
     }
 
-    private void updatePlaces(int id, String name, String desc, String url){
-        if (!name.isEmpty()){
+    private void updatePlaces(int id, String name, String desc, String url) {
+        if (!name.isEmpty()) {
             int index = -1;
             boolean isExist = false;
-            for (int i=0; i < dataPlaces.size(); i++){
-                if (id == dataPlaces.get(i).getId()){
+            for (int i = 0; i < dataPlaces.size(); i++) {
+                if (id == dataPlaces.get(i).getId()) {
                     index = i;
                     isExist = true;
                     break;
                 }
             }
 
-            if (isExist){
+            if (isExist) {
                 dataPlaces.get(index).setName(name);
                 dataPlaces.get(index).setDescription(desc);
                 dataPlaces.get(index).setUrl(url);
@@ -130,7 +136,7 @@ public class PlaceActivity extends AppCompatActivity implements OnItemClickListe
                 dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Place place = child.getValue(Place.class);
-                    if(place != null){
+                    if (place != null) {
                         dataPlaces.add(place);
                     }
                 }
@@ -146,23 +152,23 @@ public class PlaceActivity extends AppCompatActivity implements OnItemClickListe
     }
 
     private void SetAdapter() {
-        layoutManager= new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         ArrayList<Place> places = new ArrayList<>();
         places.add(data);
-        menuAdapter= new MenuAdapter(places, this);
+        menuAdapter = new MenuAdapter(places, this);
 
         recyclerView.setAdapter(menuAdapter);
         recyclerView.setHasFixedSize(true);
     }
 
-    private void clearText(){
+    private void clearText() {
         extName.setText("");
         extDesc.setText("");
         extUrl.setText("");
     }
 
-    private void appendData(Place place){
+    private void appendData(Place place) {
         extName.setText(place.getName());
         extDesc.setText(place.getDescription());
         extUrl.setText(place.getUrl());
@@ -172,6 +178,12 @@ public class PlaceActivity extends AppCompatActivity implements OnItemClickListe
     public void onItemClick(Object o) {
         Place data = (Place) o;
         appendData(data);
-        Log.d("TAG", "onItemClick: "+data.toString() );
+        Log.d("TAG", "onItemClick: " + data.toString());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 }
