@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +14,7 @@ import android.widget.ImageView;
 import com.example.location.adapters.MenuAdapter;
 import com.example.location.helpers.TempData;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.models.Menu;
+import com.example.location.models.Place;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     MenuAdapter menuAdapter;
     RecyclerView.LayoutManager layoutManager;
     TempData data;
-    ArrayList<Menu> dataMenu;
+    ArrayList<Place> dataPlaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +49,11 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     private void SetAdapter() {
         data = new TempData();
-        dataMenu = new ArrayList<>();
-        dataMenu = data.GetData();
+        dataPlaces = new ArrayList<>();
+        dataPlaces = data.GetData();
         layoutManager= new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
-        menuAdapter= new MenuAdapter(dataMenu, this);
+        menuAdapter= new MenuAdapter(dataPlaces, this);
 
         recyclerView.setAdapter(menuAdapter);
         recyclerView.setHasFixedSize(true);
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
 
     @Override
     public void onItemClick(Object o) {
-        Menu data= (Menu) o;
+        Place data= (Place) o;
         Log.d("TAG", "onItemClick: "+data.toString() );
     }
 }

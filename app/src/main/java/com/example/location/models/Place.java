@@ -2,14 +2,14 @@ package com.example.location.models;
 
 import java.io.Serializable;
 
-public class Menu implements Serializable {
+public class Place implements Serializable {
     int id;
     String name, url, description;
 
-    public Menu() {
+    public Place() {
     }
 
-    public Menu(int id, String name, String url, String description) {
+    public Place(int id, String name, String url, String description) {
         this.id = id;
         this.name = name;
         this.url = url;

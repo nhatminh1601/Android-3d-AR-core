@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.adapters.MenuAdapter;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.models.Menu;
+import com.example.location.models.Place;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +24,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     RecyclerView recyclerView;
     MenuAdapter menuAdapter;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<Menu> dataMenu = new ArrayList<>();
+    ArrayList<Place> dataPlaces = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Menu menu = child.getValue(Menu.class);
-                    if(menu != null){
-                        dataMenu.add(menu);
+                    Place place = child.getValue(Place.class);
+                    if(place != null){
+                        dataPlaces.add(place);
                     }
                 }
                 SetAdapter();
@@ -58,7 +58,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     private void SetAdapter() {
         layoutManager= new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
-        menuAdapter= new MenuAdapter(dataMenu, this);
+        menuAdapter= new MenuAdapter(dataPlaces, this);
 
         recyclerView.setAdapter(menuAdapter);
         recyclerView.setHasFixedSize(true);
@@ -66,7 +66,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
 
     @Override
     public void onItemClick(Object o) {
-        Menu data= (Menu) o;
+        Place data= (Place) o;
         Log.d("TAG", "onItemClick: "+data.toString() );
     }
 }

@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.models.Menu;
+import com.example.location.models.Place;
 
 import java.util.ArrayList;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
-    ArrayList<Menu> arr;
+    ArrayList<Place> arr;
     private OnItemClickListener onItemClickListener;
 
-    public MenuAdapter(ArrayList<Menu> arr, OnItemClickListener onItemClickListener) {
+    public MenuAdapter(ArrayList<Place> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
     }
@@ -49,7 +49,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView bg;
         TextView title;
-        Menu menu;
+        Place place;
 
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -60,14 +60,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
                 public void onClick(View view) {
                     Animation animation = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.fede);
                     itemView.startAnimation(animation);
-                    onItemClickListener.onItemClick(menu);
+                    onItemClickListener.onItemClick(place);
                 }
             });
         }
 
-        public void getDataBind(Menu menu) {
-            this.menu = menu;
-            title.setText(menu.getName());
+        public void getDataBind(Place place) {
+            this.place = place;
+            title.setText(place.getName());
         }
     }
 }
