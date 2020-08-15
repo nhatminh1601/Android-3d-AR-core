@@ -2,4 +2,7 @@
     <string name="app_name">Location</string>
     <string name="headName">ROOM</string>
     <string name="subName">FINDER</string>
+    <string name="title_activity_camera_user">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
