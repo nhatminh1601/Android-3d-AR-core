@@ -1,10 +1,11 @@
 package com.example.location;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.adapters.MenuAdapter;
@@ -38,6 +39,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
         placesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Place place = child.getValue(Place.class);
                     if(place != null){
@@ -56,7 +58,7 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     }
 
     private void SetAdapter() {
-        layoutManager= new GridLayoutManager(this, 3);
+        layoutManager= new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         menuAdapter= new MenuAdapter(dataPlaces, this);
 
@@ -66,7 +68,11 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
 
     @Override
     public void onItemClick(Object o) {
-        Place data= (Place) o;
+        Place data = (Place) o;
         Log.d("TAG", "onItemClick: "+data.toString() );
+        Intent intent = new Intent(this, PlaceActivity.class);
+        intent.putExtra("placeData", data);
+        startActivity(intent);
+
     }
 }

@@ -1,6 +1,5 @@
 package com.example.location;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.location.helpers.CustomAlertDialog;
 import com.example.location.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +23,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+    CustomAlertDialog alertDialog;
 
     EditText extUsername;
     EditText extPassword;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_main);
+        alertDialog = new CustomAlertDialog(this);
         getAdminInfo();
         extUsername = findViewById(R.id.extUsername);
         extUsername.requestFocus();
@@ -79,22 +81,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        new AlertDialog.Builder(LoginActivity.this)
-                .setTitle("Thông báo")
-                .setMessage("Username hoặc password không chính xác!")
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
+        alertDialog.show("Username hoặc password không chính xác!");
         extUsername.requestFocus();
         return false;
     }
 
     private boolean checkEmpty(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            new AlertDialog.Builder(LoginActivity.this)
-                    .setTitle("Thông báo")
-                    .setMessage("Vui lòng nhập vào username & password!")
-                    .setPositiveButton(android.R.string.ok, null)
-                    .show();
+            alertDialog.show("Vui lòng nhập vào username & password!");
             extUsername.requestFocus();
             return false;
         }

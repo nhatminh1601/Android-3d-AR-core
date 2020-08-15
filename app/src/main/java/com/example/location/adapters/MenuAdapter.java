@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
@@ -47,12 +48,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
         ImageView bg;
         TextView title;
         Place place;
 
         public MyViewHolder(@NonNull final View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.itemCard);
             bg = itemView.findViewById(R.id.imgBg);
             title = itemView.findViewById(R.id.tvTitle);
             itemView.setOnClickListener(new View.OnClickListener() {

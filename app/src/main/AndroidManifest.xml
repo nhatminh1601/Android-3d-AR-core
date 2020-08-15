@@ -24,6 +24,7 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".AdminActivity"></activity>
         <activity android:name=".PlacesActivity"></activity>
+        <activity android:name=".PlaceActivity"></activity>
         <activity android:name=".CameraAdminActivity"></activity>
         <activity android:name=".CameraUserActivity" />
         <meta-data android:name="com.google.ar.core" android:value="required" />

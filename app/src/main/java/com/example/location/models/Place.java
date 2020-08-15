@@ -1,10 +1,12 @@
 package com.example.location.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Place implements Serializable {
     int id;
     String name, url, description;
+    ArrayList<String> anchors;
 
     public Place() {
     }
@@ -14,6 +16,15 @@ public class Place implements Serializable {
         this.name = name;
         this.url = url;
         this.description = description;
+        this.anchors = new ArrayList<>();
+    }
+
+    public Place(int id, String name, String url, String description, ArrayList<String> anchors) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.description = description;
+        this.anchors = anchors;
     }
 
     public int getId() {
@@ -46,6 +57,14 @@ public class Place implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<String> getAnchors() {
+        return anchors;
+    }
+
+    public void setAnchors(ArrayList<String> anchors) {
+        this.anchors = anchors;
     }
 
     @Override
