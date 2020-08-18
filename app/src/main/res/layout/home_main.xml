@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="9"
-            android:gravity="center"
             android:orientation="vertical">
 
             <fragment
@@ -42,15 +40,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_border"
+                android:background="@android:color/transparent"
+                android:textColor="#3f9afc"
+                android:textAllCaps="false"
+                android:textStyle="normal"
+                android:textSize="25sp"
                 android:text="Bắt đầu" />
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/disabled_button_border"
-                android:text="Đăng Nhập" />
+                android:gravity="center"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#2B2B2B"
+                    android:text="Dành cho nhà phát triển"
+                    />
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text=" admin"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textColor="#3f9afc"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

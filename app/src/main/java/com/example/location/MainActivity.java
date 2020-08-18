@@ -11,8 +11,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.location.adapters.MenuAdapter;
 import com.example.location.helpers.TempData;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements OnItemClickListener {
     ImageView imgBg;
     RecyclerView recyclerView;
+    EditText edSearch;
     MenuAdapter menuAdapter;
     RecyclerView.LayoutManager layoutManager;
     TempData data;
@@ -48,13 +53,25 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         SetViewId();
         SetAnimationBG();
         getPlaces();
+        handlerSearch();
 
 
+    }
+
+    private void handlerSearch() {
+        edSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                menuAdapter.getFilter().filter(edSearch.getText());
+                return true;
+            }
+        });
     }
 
     private void SetViewId() {
         imgBg = findViewById(R.id.imgBg);
         recyclerView = findViewById(R.id.lvMenu);
+        edSearch = findViewById(R.id.edSearch);
     }
 
     private void SetAdapter() {

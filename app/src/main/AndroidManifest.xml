@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.location">
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.camera.ar" android:value="required"/>
+
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:value="required" />
     <!-- Sceneform requires OpenGL ES 3.0 or later. -->
-    <uses-feature android:glEsVersion="0x00030000" android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00030000"
+        android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,14 +26,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".AdminActivity"></activity>
-        <activity android:name=".PlacesActivity" android:theme="@style/TooBar"></activity>
-        <activity android:name=".PlaceActivity" android:theme="@style/TooBar"></activity>
-        <activity android:name=".CameraAdminActivity"></activity>
+        <activity android:name=".AdminActivity" />
+        <activity
+            android:name=".PlacesActivity"
+            android:theme="@style/TooBar" />
+        <activity
+            android:name=".PlaceActivity"
+            android:theme="@style/TooBar" />
+        <activity android:name=".CameraAdminActivity" />
         <activity android:name=".CameraUserActivity" />
-        <meta-data android:name="com.google.ar.core" android:value="required" />
+
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
         <meta-data
             android:name="com.google.android.ar.API_KEY"
             android:value="AIzaSyAEDbwcHfxrK8SzBwcHW9To54i95rWo8yE" />
