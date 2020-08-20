@@ -14,6 +14,7 @@ import com.example.location.models.Place;
 import com.example.location.models.Storage;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.assets.RenderableSource;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -115,7 +116,9 @@ public class CameraAdminActivity extends AppCompatActivity {
     private void create3DModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse("model-triangulated.sfb"))
+                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse("model.gltf"),
+                        RenderableSource.SourceType.GLTF2).setScale(0.1f)
+                .setRecenterMode(RenderableSource.RecenterMode.ROOT).build())
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable))
                 .exceptionally(throwable -> {
