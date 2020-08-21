@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.location.adapters.MenuAdapter;
 import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.models.Anchor;
 import com.example.location.models.Place;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,19 +36,24 @@ public class DrawsActivity extends AppCompatActivity implements OnItemClickListe
         actionBar.setTitle("Vẽ đường đi");
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_draws);
-        recyclerView=findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         getPlaces();
     }
+
     private void getPlaces() {
         placesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Place place = child.getValue(Place.class);
-                    if (place != null) {
-                        dataPlaces.add(place);
-                    }
+
+                    int id = child.child("id").getValue(Integer.class);
+                    String name = child.child("name").getValue(String.class);
+                    String url = child.child("url").getValue(String.class);
+                    String description = child.child("description").getValue(String.class);
+                    ArrayList<Anchor> anchors = (ArrayList<Anchor>) child.child("anchors").getValue();
+                    Place place = new Place(id, name, url, description, anchors);
+                    dataPlaces.add(place);
                 }
                 SetAdapter();
                 Log.d("TAG", "Value is: " + dataSnapshot.getValue());
@@ -59,6 +65,7 @@ public class DrawsActivity extends AppCompatActivity implements OnItemClickListe
             }
         });
     }
+
     private void SetAdapter() {
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -66,6 +73,7 @@ public class DrawsActivity extends AppCompatActivity implements OnItemClickListe
         recyclerView.setAdapter(menuAdapter);
         recyclerView.setHasFixedSize(true);
     }
+
     @Override
     public void onItemClick(Object o) {
         Place data = (Place) o;

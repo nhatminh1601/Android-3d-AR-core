@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Place implements Serializable {
     int id;
     String name, url, description;
-    ArrayList<String> anchors;
+    ArrayList<Anchor> anchors;
 
     public Place() {
     }
@@ -19,7 +19,7 @@ public class Place implements Serializable {
         this.anchors = new ArrayList<>();
     }
 
-    public Place(int id, String name, String url, String description, ArrayList<String> anchors) {
+    public Place(int id, String name, String url, String description, ArrayList<Anchor> anchors) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -59,11 +59,11 @@ public class Place implements Serializable {
         this.description = description;
     }
 
-    public ArrayList<String> getAnchors() {
+    public ArrayList<Anchor> getAnchors() {
         return anchors;
     }
 
-    public void setAnchors(ArrayList<String> anchors) {
+    public void setAnchors(ArrayList<Anchor> anchors) {
         this.anchors = anchors;
     }
 
