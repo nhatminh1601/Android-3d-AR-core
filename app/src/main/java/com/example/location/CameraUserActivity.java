@@ -54,7 +54,7 @@ public class CameraUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("TAG", "onClick: ");
                 for (int i = 0; i < data.getAnchors().size(); i++) {
-                    String anchorId = data.getAnchors().get(i);
+                    String anchorId = data.getAnchors().get(i).getId();
                     Log.d("TAG", "onCreate: " + anchorId);
                     if (anchorId.isEmpty()) {
                        // Toast.makeText(this, "No anchor Id found", Toast.LENGTH_LONG).show();
@@ -99,7 +99,7 @@ public class CameraUserActivity extends AppCompatActivity {
     private void create3DModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse("model-triangulated.sfb"))
+                .setSource(this, Uri.parse("straight.gltf"))
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable))
                 .exceptionally(throwable -> {

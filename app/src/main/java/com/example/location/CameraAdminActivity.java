@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.location.models.Place;
 import com.example.location.models.Storage;
+import com.example.location.models.Type;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.assets.RenderableSource;
@@ -29,11 +30,15 @@ import java.util.ArrayList;
 
 public class CameraAdminActivity extends AppCompatActivity {
     private CloudAnchorFragment arFragment;
-    private ArrayList anchorList;
+    private ArrayList<com.example.location.models.Anchor> anchorList;
     Button btnSave;
+    String type = Type.STRAIGHT.name();
+
     DatabaseReference placesRef = FirebaseDatabase.getInstance().getReference("places");
     ArrayList<Place> dataPlaces = new ArrayList<>();
     Place data;
+    Boolean isLast = false;
+
 
     private enum AppAnchorState {
         NONE,
@@ -58,7 +63,7 @@ public class CameraAdminActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         anchorList = new ArrayList();
         // Context of the entire application is passed on to TinyDB
-        Storage storage = new Storage(getApplicationContext());
+        //Storage storage = new Storage(getApplicationContext());
 //        Button resolve = findViewById(R.id.resolve);
 
         arFragment = (CloudAnchorFragment) getSupportFragmentManager().findFragmentById(R.id.arAdminFragment);
@@ -87,10 +92,7 @@ public class CameraAdminActivity extends AppCompatActivity {
             } else if (cloudAnchorState == Anchor.CloudAnchorState.SUCCESS) {
                 appAnchorState = AppAnchorState.HOSTED;
                 String anchorId = anchor.getCloudAnchorId();
-                anchorList.add(anchorId);
-                storage.addListString("data", anchorList);
-
-
+                anchorList.add(new com.example.location.models.Anchor(anchorId, Type.valueOf(type), isLast));
                 showToast("Anchor hosted successfully. Anchor Id: " + anchorId);
             }
 
@@ -116,9 +118,9 @@ public class CameraAdminActivity extends AppCompatActivity {
     private void create3DModel(Anchor anchor) {
         ModelRenderable
                 .builder()
-                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse("model.gltf"),
+                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse("left.gltf"),
                         RenderableSource.SourceType.GLTF2).setScale(0.1f)
-                .setRecenterMode(RenderableSource.RecenterMode.ROOT).build())
+                        .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable))
                 .exceptionally(throwable -> {
@@ -149,7 +151,7 @@ public class CameraAdminActivity extends AppCompatActivity {
         arFragment.getArSceneView().getScene().addChild(anchorNode);
     }
 
-    private void updatePlaces(int id, ArrayList<String> anchorList) {
+    private void updatePlaces(int id, ArrayList<com.example.location.models.Anchor> anchorList) {
         if (!anchorList.isEmpty()) {
             int index = -1;
             boolean isExist = false;
@@ -177,10 +179,14 @@ public class CameraAdminActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Place place = child.getValue(Place.class);
-                    if (place != null) {
-                        dataPlaces.add(place);
-                    }
+                    int id = child.child("id").getValue(Integer.class);
+                    String name = child.child("name").getValue(String.class);
+                    String url = child.child("url").getValue(String.class);
+                    String description = child.child("description").getValue(String.class);
+                    ArrayList<com.example.location.models.Anchor> anchors = (ArrayList<com.example.location.models.Anchor>) child.child("anchors").getValue();
+                    Place place = new Place(id, name, url, description, anchors);
+                    dataPlaces.add(place);
+
                 }
                 Log.d("TAG", "Value is: " + dataSnapshot.getValue());
             }
