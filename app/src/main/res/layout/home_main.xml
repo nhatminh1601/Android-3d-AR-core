@@ -16,13 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="9"
+            android:gravity="center"
             android:orientation="vertical">
 
             <fragment
                 android:id="@+id/frmLogo"
                 android:name="com.example.location.LogoFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -53,13 +54,13 @@
                 android:gravity="center"
                 android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#2B2B2B"
                     android:text="Dành cho nhà phát triển"
-                    />
+                    android:textColor="#2B2B2B"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -70,7 +71,7 @@
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="#3f9afc"
-                    android:textSize="12sp"
+                    android:textSize="18sp"
                     android:textStyle="normal" />
             </LinearLayout>
 

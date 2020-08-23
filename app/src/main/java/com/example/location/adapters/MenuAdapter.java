@@ -1,5 +1,8 @@
 package com.example.location.adapters;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +19,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.location.R;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.models.Place;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +36,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     ArrayList<Place> placeAll;
     private OnItemClickListener onItemClickListener;
     int type;
+    private Context context;
 
     public MenuAdapter(ArrayList<Place> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
@@ -55,6 +63,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
+        context = parent.getContext();
         return myViewHolder;
     }
 
@@ -124,6 +133,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         public void getDataBind(Place place) {
             this.place = place;
             title.setText(place.getName());
+            if (!place.getUrl().isEmpty()){
+                //Glide.with(context).load(place.getUrl()).into(bg);
+            }
         }
     }
 }

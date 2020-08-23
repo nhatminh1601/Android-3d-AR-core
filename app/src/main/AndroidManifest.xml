@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera.ar"
@@ -37,6 +39,9 @@
             android:theme="@style/TooBar" />
         <activity
             android:name=".PlaceActivity"
+            android:theme="@style/TooBar" />
+        <activity
+            android:name=".AddPlaceActivity"
             android:theme="@style/TooBar" />
         <activity android:name=".CameraAdminActivity" />
         <activity android:name=".CameraUserActivity" />

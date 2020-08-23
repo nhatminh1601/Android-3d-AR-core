@@ -3,6 +3,8 @@ package com.example.location;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,16 +32,25 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
     ArrayList<Place> dataPlaces = new ArrayList<>();
     ActionBar actionBar;
 
+    Button btnNew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Danh sách phòng");
+        actionBar.setTitle("Danh sách địa điểm");
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.places_main);
         getPlaces();
         recyclerView = findViewById(R.id.lvMenu);
-
+        btnNew = findViewById(R.id.btnNew);
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PlacesActivity.this, AddPlaceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getPlaces() {
@@ -48,10 +59,13 @@ public class PlacesActivity extends AppCompatActivity implements OnItemClickList
             public void onDataChange(DataSnapshot dataSnapshot) {
                 dataPlaces.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Place place = child.getValue(Place.class);
-                    if (place != null) {
-                        dataPlaces.add(place);
-                    }
+                    int id = child.child("id").getValue(Integer.class);
+                    String name = child.child("name").getValue(String.class);
+                    String url = child.child("url").getValue(String.class);
+                    String description = child.child("description").getValue(String.class);
+                    ArrayList<com.example.location.models.Anchor> anchors = (ArrayList<com.example.location.models.Anchor>) child.child("anchors").getValue();
+                    Place place = new Place(id, name, url, description, anchors);
+                    dataPlaces.add(place);
                 }
                 SetAdapter();
                 Log.d("TAG", "Value is: " + dataSnapshot.getValue());

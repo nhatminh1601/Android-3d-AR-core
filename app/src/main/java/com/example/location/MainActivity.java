@@ -106,10 +106,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Place place = child.getValue(Place.class);
-                    if (place != null) {
-                        dataPlaces.add(place);
-                    }
+                    int id = child.child("id").getValue(Integer.class);
+                    String name = child.child("name").getValue(String.class);
+                    String url = child.child("url").getValue(String.class);
+                    String description = child.child("description").getValue(String.class);
+                    ArrayList<com.example.location.models.Anchor> anchors = (ArrayList<com.example.location.models.Anchor>) child.child("anchors").getValue();
+                    Place place = new Place(id, name, url, description, anchors);
+                    dataPlaces.add(place);
                 }
                 SetAdapter();
                 Log.d("TAG", "Value is: " + dataSnapshot.getValue());
