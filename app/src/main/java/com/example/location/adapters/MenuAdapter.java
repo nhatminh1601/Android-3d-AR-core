@@ -132,7 +132,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             this.place = place;
             title.setText(place.getName());
             if (!place.getUrl().isEmpty()){
-                Glide.with(context).load(place.getUrl()).into(bg);
+                Glide.with(context).load(place.getUrl()).placeholder(R.drawable.bg2).error(R.drawable.bg2).into(bg);
             }
         }
     }
