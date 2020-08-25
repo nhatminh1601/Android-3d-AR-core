@@ -36,7 +36,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     ArrayList<Place> placeAll;
     private OnItemClickListener onItemClickListener;
     int type;
-    private Context context;
 
     public MenuAdapter(ArrayList<Place> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
@@ -63,13 +62,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
-        context = parent.getContext();
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.getDataBind(arr.get(position));
+        holder.getDataBind(arr.get(position), holder.itemView.getContext());
     }
 
     @Override
@@ -130,11 +128,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             });
         }
 
-        public void getDataBind(Place place) {
+        public void getDataBind(Place place, Context context) {
             this.place = place;
             title.setText(place.getName());
             if (!place.getUrl().isEmpty()){
-                //Glide.with(context).load(place.getUrl()).into(bg);
+                Glide.with(context).load(place.getUrl()).into(bg);
             }
         }
     }
