@@ -4,40 +4,40 @@
          "bufferView" : 2,
          "byteOffset" : 0,
          "componentType" : 5126,
-         "count" : 1080,
-         "max" : [ 1, 1, 1, 1 ],
-         "min" : [ 0.1360985487699509, 0.0384727455675602, 0.4819522500038147, 1 ],
-         "name" : "accessor_color_m0-PolyPaper21_-103702",
+         "count" : 336,
+         "max" : [ 0.2195197343826294, 0.7372047901153564, 0.8277258276939392, 1 ],
+         "min" : [ 5.692175545846112e-05, 0.3344578146934509, 0.7893137335777283, 1 ],
+         "name" : "accessor_color_m0-PolyPaper21_-62582",
          "type" : "VEC4"
       },
       {
          "bufferView" : 0,
          "byteOffset" : 0,
          "componentType" : 5123,
-         "count" : 1836,
-         "max" : [ 1079 ],
+         "count" : 432,
+         "max" : [ 335 ],
          "min" : [ 0 ],
-         "name" : "accessor_indices_0_m0-PolyPaper21_-103702",
+         "name" : "accessor_indices_0_m0-PolyPaper21_-62582",
          "type" : "SCALAR"
       },
       {
          "bufferView" : 1,
-         "byteOffset" : 12960,
+         "byteOffset" : 4032,
          "componentType" : 5126,
-         "count" : 1080,
-         "max" : [ 1, 1, 0.9324419 ],
-         "min" : [ -0.8961947, -1, -0.932442 ],
-         "name" : "accessor_normal_m0-PolyPaper21_-103702",
+         "count" : 336,
+         "max" : [ 0.9999579, 0.9994175, 0.9929287 ],
+         "min" : [ -0.9999999000000001, -0.9993579, -0.7464619 ],
+         "name" : "accessor_normal_m0-PolyPaper21_-62582",
          "type" : "VEC3"
       },
       {
          "bufferView" : 1,
          "byteOffset" : 0,
          "componentType" : 5126,
-         "count" : 1080,
-         "max" : [ -1.240034, 1.840038, 1.120046 ],
-         "min" : [ -3.620762, 1.629998, 0.160045 ],
-         "name" : "accessor_position_m0-PolyPaper21_-103702",
+         "count" : 336,
+         "max" : [ -1.879999, 3.131094, 2.66997 ],
+         "min" : [ -3.129994, 2.340003, -0.6652259 ],
+         "name" : "accessor_position_m0-PolyPaper21_-62582",
          "type" : "VEC3"
       }
    ],
@@ -49,23 +49,23 @@
    "bufferViews" : [
       {
          "buffer" : 0,
-         "byteLength" : 3672,
+         "byteLength" : 864,
          "byteOffset" : 0,
          "name" : "ushortBufferView",
          "target" : 34963
       },
       {
          "buffer" : 0,
-         "byteLength" : 25920,
-         "byteOffset" : 3672,
+         "byteLength" : 8064,
+         "byteOffset" : 864,
          "byteStride" : 12,
          "name" : "vec3BufferView",
          "target" : 34962
       },
       {
          "buffer" : 0,
-         "byteLength" : 17280,
-         "byteOffset" : 29592,
+         "byteLength" : 5376,
+         "byteOffset" : 8928,
          "byteStride" : 16,
          "name" : "vec4BufferView",
          "target" : 34962
@@ -73,7 +73,7 @@
    ],
    "buffers" : [
       {
-         "byteLength" : 46872,
+         "byteLength" : 14304,
          "name" : "model",
          "uri" : "model.bin"
       }
@@ -112,7 +112,7 @@
    ],
    "meshes" : [
       {
-         "name" : "mesh_m0-PolyPaper21_-103702",
+         "name" : "mesh_m0-PolyPaper21_-62582",
          "primitives" : [
             {
                "attributes" : {
@@ -130,7 +130,7 @@
    "nodes" : [
       {
          "mesh" : 0,
-         "name" : "node_MeshObject781117440-PolyPaper21"
+         "name" : "node_MeshObject200290304-PolyPaper21"
       }
    ],
    "scene" : 0,

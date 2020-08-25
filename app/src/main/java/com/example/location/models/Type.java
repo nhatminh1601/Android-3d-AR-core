@@ -1,9 +1,9 @@
 package com.example.location.models;
 
 public enum Type {
-    LEFT("left.gltf"),
-    RIGHT("right.gltf"),
-    STRAIGHT("straight.gltf");
+    LEFT("imagea/model.gltf"),
+    RIGHT("imageb/model.gltf"),
+    STRAIGHT("imagec/159790.gltf");
 
     String url;
 

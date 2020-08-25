@@ -3,15 +3,17 @@ package com.example.location;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.location.models.Place;
-import com.example.location.models.Storage;
 import com.example.location.models.Type;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 public class CameraAdminActivity extends AppCompatActivity {
     private CloudAnchorFragment arFragment;
     private ArrayList<com.example.location.models.Anchor> anchorList;
-    Button btnSave;
+    ImageButton btnSave, btnLeft, btnRight, btnCenter, btnBack;
     String type = Type.STRAIGHT.name();
 
     DatabaseReference placesRef = FirebaseDatabase.getInstance().getReference("places");
@@ -61,6 +63,10 @@ public class CameraAdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_admin);
         getPlaces();
         btnSave = findViewById(R.id.btnSave);
+        btnCenter = findViewById(R.id.btnCenter);
+        btnRight = findViewById(R.id.btnRight);
+        btnLeft = findViewById(R.id.btnLeft);
+        btnBack = findViewById(R.id.btnBack);
         anchorList = new ArrayList();
         // Context of the entire application is passed on to TinyDB
         //Storage storage = new Storage(getApplicationContext());
@@ -78,6 +84,7 @@ public class CameraAdminActivity extends AppCompatActivity {
             showToast("Adding Arrow to the scene");
             Log.d("TAG", "onCreate: " + anchor.toString());
             create3DModel(anchor);
+            handleClick();
 
         });
 
@@ -101,7 +108,45 @@ public class CameraAdminActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(btnSave.getContext(), R.anim.fede);
+                btnSave.startAnimation(animation);
                 updatePlaces(data.getId(), anchorList);
+            }
+        });
+    }
+
+    private void handleClick() {
+        btnLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(btnLeft.getContext(), R.anim.fede);
+                btnLeft.startAnimation(animation);
+                type = Type.LEFT.name();
+                Log.d("fff", "onClick: " + Type.valueOf(type));
+            }
+        });
+        btnRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(btnRight.getContext(), R.anim.fede);
+                btnRight.startAnimation(animation);
+                type = Type.RIGHT.name();
+            }
+        });
+        btnCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(btnCenter.getContext(), R.anim.fede);
+                btnCenter.startAnimation(animation);
+                type = Type.STRAIGHT.name();
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation animation = AnimationUtils.loadAnimation(btnBack.getContext(), R.anim.fede);
+                btnBack.startAnimation(animation);
+                finish();
             }
         });
     }
@@ -116,9 +161,10 @@ public class CameraAdminActivity extends AppCompatActivity {
      * @param anchor
      */
     private void create3DModel(Anchor anchor) {
+        //Log.d("TAG", "create3DModel: "+type);
         ModelRenderable
                 .builder()
-                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse("left.gltf"),
+                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse(Type.valueOf(type).toString()),
                         RenderableSource.SourceType.GLTF2).setScale(0.1f)
                         .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
