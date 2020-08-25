@@ -14,13 +14,16 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.location.models.Place;
+import com.example.location.models.Type;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.assets.RenderableSource;
 import com.google.ar.sceneform.math.Quaternion;
 import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -28,6 +31,7 @@ import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CameraUserActivity extends AppCompatActivity {
     private CloudAnchorFragment arFragment;
@@ -36,6 +40,7 @@ public class CameraUserActivity extends AppCompatActivity {
     private AnchorNode anchorNode;
 
     Place data;
+    ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,27 +52,35 @@ public class CameraUserActivity extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + data.toString());
         }
         arFragment = (CloudAnchorFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
-
-        Button btLoad = findViewById(R.id.btnLoad);
+        btnBack= findViewById(R.id.btnBack);
+        ImageButton btLoad = findViewById(R.id.btnLoad);
         btLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("TAG", "onClick: ");
+                Log.d("bbbb", "onClick: " + data.getAnchors().size());
                 for (int i = 0; i < data.getAnchors().size(); i++) {
                     String anchorId = data.getAnchors().get(i).getId();
-                    Log.d("TAG", "onCreate: " + anchorId);
                     if (anchorId.isEmpty()) {
-                       // Toast.makeText(this, "No anchor Id found", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "No anchor Id found", Toast.LENGTH_LONG).show();
                         return;
+                    }else{
+                        Anchor resolvedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(anchorId);
+                        create3DModel(resolvedAnchor,data.getAnchors().get(i));
                     }
-
-                    Anchor resolvedAnchor = arFragment.getArSceneView().getSession().resolveCloudAnchor(anchorId);
-                    create3DModel(resolvedAnchor);
                 }
             }
         });
 
+        goBack();
+    }
 
+    private void goBack() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
@@ -96,10 +109,12 @@ public class CameraUserActivity extends AppCompatActivity {
      *
      * @param anchor
      */
-    private void create3DModel(Anchor anchor) {
+    private void create3DModel(Anchor anchor, com.example.location.models.Anchor anchor1) {
+        Log.d("dđ", "create3DModel: "+anchor);
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse("straight.gltf"))
+                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse(anchor1.getType().getUrl()),
+                        RenderableSource.SourceType.GLTF2).setScale(0.1f).setRecenterMode(RenderableSource.RecenterMode.ROOT).build())
                 .build()
                 .thenAccept(modelRenderable -> addModelToScene(anchor, modelRenderable))
                 .exceptionally(throwable -> {

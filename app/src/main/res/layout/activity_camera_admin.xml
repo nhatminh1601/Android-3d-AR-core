@@ -15,8 +15,9 @@
     <ImageButton
         android:id="@+id/btnBack"
         android:elevation="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="#00FFFFFF"
         android:src="@drawable/ic_baseline_arrow_back_24"></ImageButton>
 
@@ -106,17 +107,19 @@
         </LinearLayout>
         <androidx.cardview.widget.CardView
             android:layout_marginTop="10dp"
+            android:padding="10dp"
             app:cardCornerRadius="25dp"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
+            android:background="#4CAF50"
             android:layout_gravity="center"
-            android:layout_height="40dp">
+            android:layout_height="50dp">
             <ImageButton
+                android:background="@drawable/border_white"
                 android:id="@+id/btnSave"
-                android:scaleType="fitCenter"
+                android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-               android:background="@drawable/bg_circle"
-               android:src="@drawable/check" />
+               android:src="@drawable/upload1" />
         </androidx.cardview.widget.CardView>
 
 

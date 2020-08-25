@@ -11,37 +11,33 @@
         app:cardBackgroundColor="#FFFFFF"
         android:elevation="3dp"
         app:cardCornerRadius="10dp"
-        android:layout_height="match_parent" >
+        android:layout_height="100dp" >
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="100dp">
             <ImageView
                 android:id="@+id/imageBg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:src="@drawable/b3" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#33000000" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="#FFFDFD"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:typeface="normal" />
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:text="aaaa"
+        android:textStyle="bold"
+        android:typeface="normal" />
 
 </LinearLayout>

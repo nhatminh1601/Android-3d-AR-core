@@ -1,6 +1,8 @@
 package com.example.location.models;
 
-public class Anchor {
+import java.io.Serializable;
+
+public class Anchor implements Serializable {
     String id;
     Type type;
     Boolean isLast;

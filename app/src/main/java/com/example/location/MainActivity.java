@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -21,7 +22,10 @@ import android.widget.TextView;
 import com.example.location.adapters.MenuAdapter;
 import com.example.location.helpers.TempData;
 import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.models.Anchor;
 import com.example.location.models.Place;
+import com.example.location.models.Storage;
+import com.example.location.models.Type;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +33,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity implements OnItemClickListener {
     ImageView imgBg;
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     TempData data;
     ArrayList<Place> dataPlaces;
     DatabaseReference placesRef = FirebaseDatabase.getInstance().getReference("places");
+    ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +59,25 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
         dataPlaces = new ArrayList<>();
         SetViewId();
         SetAnimationBG();
+
         getPlaces();
         handlerSearch();
+        btnBack = findViewById(R.id.btnBack);
+        goBack();
 
 
+    }
+
+    private void goBack() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
     }
 
     private void handlerSearch() {
@@ -95,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
     @Override
     public void onItemClick(Object o) {
         Place data = (Place) o;
-        Log.d("TAG", "onItemClick: " + data.toString());
         Intent intent = new Intent(MainActivity.this, CameraUserActivity.class);
         intent.putExtra("item", data);
         startActivity(intent);
@@ -110,7 +131,13 @@ public class MainActivity extends AppCompatActivity implements OnItemClickListen
                     String name = child.child("name").getValue(String.class);
                     String url = child.child("url").getValue(String.class);
                     String description = child.child("description").getValue(String.class);
-                    ArrayList<com.example.location.models.Anchor> anchors = (ArrayList<com.example.location.models.Anchor>) child.child("anchors").getValue();
+                    ArrayList<com.example.location.models.Anchor> anchors = new ArrayList<>();
+                    for (DataSnapshot child2 : child.child("anchors").getChildren()) {
+                        String ID = child2.child("id").getValue(String.class);
+                        Anchor anchor = new Anchor(ID, Type.LEFT, true);
+                        anchors.add(anchor);
+
+                    }
                     Place place = new Place(id, name, url, description, anchors);
                     dataPlaces.add(place);
                 }

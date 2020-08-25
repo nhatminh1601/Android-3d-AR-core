@@ -25,13 +25,13 @@
                 android:id="@+id/fragment"
                 android:name="com.example.location.LogoFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="9" />
+                android:layout_height="0dp"
+                android:layout_weight="5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_weight="5"
                 android:orientation="vertical">
 
                 <LinearLayout

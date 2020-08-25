@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_weight="8"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -64,7 +64,7 @@
 
                 <Button
                     android:id="@+id/btnLogin"
-                    android:layout_width="46dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:text=" admin"

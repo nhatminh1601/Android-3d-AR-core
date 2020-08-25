@@ -52,13 +52,13 @@ public class CameraAdminActivity extends AppCompatActivity {
     private AnchorNode anchorNode;
     private AppAnchorState appAnchorState = AppAnchorState.NONE;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             data = (Place) extras.getSerializable("item");
-            Log.d("TAG", "onCreate: " + data.toString());
         }
         setContentView(R.layout.activity_camera_admin);
         getPlaces();
@@ -68,10 +68,6 @@ public class CameraAdminActivity extends AppCompatActivity {
         btnLeft = findViewById(R.id.btnLeft);
         btnBack = findViewById(R.id.btnBack);
         anchorList = new ArrayList();
-        // Context of the entire application is passed on to TinyDB
-        //Storage storage = new Storage(getApplicationContext());
-//        Button resolve = findViewById(R.id.resolve);
-
         arFragment = (CloudAnchorFragment) getSupportFragmentManager().findFragmentById(R.id.arAdminFragment);
         // This part of the code will be executed when the user taps on a plane
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
@@ -111,6 +107,9 @@ public class CameraAdminActivity extends AppCompatActivity {
                 Animation animation = AnimationUtils.loadAnimation(btnSave.getContext(), R.anim.fede);
                 btnSave.startAnimation(animation);
                 updatePlaces(data.getId(), anchorList);
+                Intent intent=new Intent(getApplicationContext(), PlacesActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -122,7 +121,6 @@ public class CameraAdminActivity extends AppCompatActivity {
                 Animation animation = AnimationUtils.loadAnimation(btnLeft.getContext(), R.anim.fede);
                 btnLeft.startAnimation(animation);
                 type = Type.LEFT.name();
-                Log.d("fff", "onClick: " + Type.valueOf(type));
             }
         });
         btnRight.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +162,7 @@ public class CameraAdminActivity extends AppCompatActivity {
         //Log.d("TAG", "create3DModel: "+type);
         ModelRenderable
                 .builder()
-                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse(Type.valueOf(type).toString()),
+                .setSource(this, RenderableSource.builder().setSource(this, Uri.parse(Type.valueOf(type).getUrl()),
                         RenderableSource.SourceType.GLTF2).setScale(0.1f)
                         .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
