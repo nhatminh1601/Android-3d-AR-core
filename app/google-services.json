@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "629051796631",
+    "firebase_url": "https://ar-museum-53171.firebaseio.com",
+    "project_id": "ar-museum-53171",
+    "storage_bucket": "ar-museum-53171.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629051796631:android:7004153e0d870bec880dd2",
+        "android_client_info": {
+          "package_name": "com.example.location"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629051796631-fs99v257dnk3757os6tgbijf1n41htqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBMlcIld5kQ1xFvcrNmaXGl7h_hruAmCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629051796631-fs99v257dnk3757os6tgbijf1n41htqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
