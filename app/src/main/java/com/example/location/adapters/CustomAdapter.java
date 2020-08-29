@@ -1,4 +1,4 @@
-package com.example.location.adapter;
+package com.example.location.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
