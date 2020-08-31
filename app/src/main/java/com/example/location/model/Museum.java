@@ -8,13 +8,24 @@ public class Museum implements Serializable {
     String name;
     Integer type;
     Integer user;
+    Integer image;
+    String description;
     List<Integer> images;
 
-    public Museum(Integer id, String name, Integer type, Integer user, List<Integer> images) {
+    public Museum(Integer id, String name, Integer image, String description) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.description = description;
+    }
+
+    public Museum(Integer id, String name, Integer type, Integer user, Integer image, String description, List<Integer> images) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.user = user;
+        this.image = image;
+        this.description = description;
         this.images = images;
     }
 
@@ -50,11 +61,40 @@ public class Museum implements Serializable {
         this.user = user;
     }
 
+    public Integer getImage() {
+        return image;
+    }
+
+    public void setImage(Integer image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<Integer> getImages() {
         return images;
     }
 
     public void setImages(List<Integer> images) {
         this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Museum{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", user=" + user +
+                ", image=" + image +
+                ", description='" + description + '\'' +
+                ", images=" + images +
+                '}';
     }
 }

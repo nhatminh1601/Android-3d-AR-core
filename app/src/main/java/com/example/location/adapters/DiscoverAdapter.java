@@ -1,7 +1,6 @@
 package com.example.location.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,30 +12,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.model.MuseumType;
+import com.example.location.model.Museum;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
-    ArrayList<MuseumType> arr;
+public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.MyViewHolder> {
+    ArrayList<Museum> arr;
     private OnItemClickListener onItemClickListener;
-    Context context;
 
-    public CustomAdapter(ArrayList<MuseumType> arr, OnItemClickListener onItemClickListener) {
+    public DiscoverAdapter(ArrayList<Museum> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
+    public DiscoverAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discover, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DiscoverAdapter.MyViewHolder holder, int position) {
         holder.getDataBind(arr.get(position), holder.itemView.getContext());
     }
 
@@ -49,27 +47,28 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         RelativeLayout bg;
         TextView title;
         TextView description;
-        MuseumType museumType;
+        Museum museum;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bg = itemView.findViewById(R.id.background);
-            description=itemView.findViewById(R.id.description);
-            title=itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.description);
+            title = itemView.findViewById(R.id.title);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(museumType);
+                    onItemClickListener.onItemClick(museum);
                 }
             });
         }
 
-        public void getDataBind(MuseumType museumType, Context context) {
-            this.museumType = museumType;
-            title.setText(museumType.getName());
-            description.setText(museumType.getDescription());
-            bg.setBackground(context.getResources().getDrawable(museumType.getImage()));
+        public void getDataBind(Museum museum, Context context) {
+            this.museum = museum;
+            bg.setBackground(context.getResources().getDrawable(museum.getImage()));
+            title.setText(museum.getName());
+            description.setText(museum.getDescription());
 
         }
+
     }
 }

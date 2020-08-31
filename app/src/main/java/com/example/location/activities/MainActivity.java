@@ -20,7 +20,6 @@ import com.example.location.activities.user.fragments.FragmentHome;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private ActionBar toolbar;
     BottomNavigationView bottomNavigationView;
     FragmentManager ft;
     FragmentDiscover fragmentDiscover;
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = getSupportActionBar();
-        toolbar.setTitle("Home");
         bottomNavigationView = findViewById(R.id.bottomNav);
         handleFragment();
         handleBottomNavigation();
@@ -55,21 +52,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
-                Log.d("TAG", "onNavigationItemSelected: 2222");
                 switch (item.getItemId()) {
                     case R.id.btnHome:
-                        toolbar.setTitle("Home");
                         ft.beginTransaction().hide(active).show(fragmentHome).commit();
                         active=fragmentHome;
                         return true;
                     case R.id.btnFavorite:
-                        toolbar.setTitle("Favorite");
                         ft.beginTransaction().hide(active).show(fragmentFavourite).commit();
                         active=fragmentFavourite;
                         return true;
                     case R.id.btnNavigate:
-                        toolbar.setTitle("Navigate");
                         ft.beginTransaction().hide(active).show(fragmentDiscover).commit();
                         active=fragmentDiscover;
                         return true;
