@@ -62,8 +62,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<MuseumType> filteredList = new ArrayList<>();
-            if (charSequence == null || charSequence.length() == 0) {
-                filteredList.addAll(arr);
+            if (charSequence == null || charSequence.length() == 0 || charSequence == "") {
+                filteredList.addAll(museumTypeAll);
             } else {
                 for (MuseumType item : museumTypeAll) {
                     if (VNCharacterUtils.removeAccent(item.getDescription()).toLowerCase().contains(VNCharacterUtils.removeAccent(charSequence.toString()).toLowerCase())) {

@@ -89,16 +89,17 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                fragmentHome.search(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d("TAG", "onQueryTextChange: " + newText);
+                Log.d("TAG", "onQueryTextChange: "+newText);
+                fragmentHome.search(newText);
                 return false;
             }
         });
+
         return super.onCreateOptionsMenu(menu);
     }
 }
