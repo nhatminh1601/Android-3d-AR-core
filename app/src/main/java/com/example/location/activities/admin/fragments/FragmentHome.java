@@ -1,4 +1,4 @@
-package com.example.location.activities.user.fragments;
+package com.example.location.activities.admin.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
-import com.example.location.activities.MainActivity;
+import com.example.location.activities.admin.AdminActivity;
 import com.example.location.adapters.CustomAdapter;
 import com.example.location.dummy.MuseumTypeDummy;
 import com.example.location.interfaces.OnItemClickListener;
@@ -29,7 +29,7 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
     View view;
     CustomAdapter customAdapter;
     Context context;
-    MainActivity main;
+    AdminActivity main;
 
     public static FragmentHome newInstance() {
         FragmentHome fragmentHome = new FragmentHome();
@@ -41,7 +41,7 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         try {
             context = getContext();
-            main = (MainActivity) getActivity();
+            main = (AdminActivity) getActivity();
         } catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
         }

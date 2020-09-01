@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)) {
                 Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                intent.putExtra("userData", users.get(i));
                 startActivity(intent);
                 return true;
             }

@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         boolean checkExists = false;
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username) || users.get(i).getEmail().equals(email)) {
+            if (users.get(i).getUsername().equalsIgnoreCase(username) || users.get(i).getEmail().equalsIgnoreCase(email)) {
                 checkExists = true;
                 break;
             }

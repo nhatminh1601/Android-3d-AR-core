@@ -99,4 +99,7 @@
     <string name="register_login_hint">Đã có tài khoản? Đăng nhập</string>
     <string name="login_register_hint">Chưa có tài khoản? Đăng ký</string>
     <string name="login_email_hint">Email</string>
+    <string name="museum_name_hint">Tên bảo tàng</string>
+    <string name="museum_desc_hint">Mô tả</string>
+    <string name="museum_type_hint">Thể loại</string>
 </resources>
