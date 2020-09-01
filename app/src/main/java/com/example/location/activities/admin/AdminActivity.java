@@ -42,8 +42,9 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = (User) getIntent().getSerializableExtra("userData");
-        bottomNavigationView = findViewById(R.id.bottomAdminNav);
         getMuseumList();
+        setContentView(R.layout.activity_admin);
+        bottomNavigationView = findViewById(R.id.bottomAdminNav);
         handleFragment();
         handleBottomNavigation();
     }
@@ -91,8 +92,6 @@ public class AdminActivity extends AppCompatActivity {
             startActivity(intent);
             return;
         }
-
-        setContentView(R.layout.activity_admin);
     }
 
     private void getMuseumList() {

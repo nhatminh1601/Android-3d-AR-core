@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.MainActivity;
+import com.example.location.activities.admin.AdminActivity;
 import com.example.location.adapters.DiscoverAdapter;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Museum;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 public class FragmentCreature extends Fragment implements OnItemClickListener {
     Context context;
-    MainActivity main;
+    AdminActivity main;
     RecyclerView recyclerView;
     DiscoverAdapter discoverAdapter;
     View view;
@@ -40,7 +41,7 @@ public class FragmentCreature extends Fragment implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         try {
             context = getContext();
-            main = (MainActivity) getActivity();
+            main = (AdminActivity) getActivity();
         } catch (IllegalStateException e) {
             throw new IllegalStateException("MainActivity must implement callbacks");
         }
