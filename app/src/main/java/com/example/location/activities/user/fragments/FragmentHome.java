@@ -57,25 +57,29 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
 
     private void SetAdapter() {
         museumTypes = new ArrayList<>();
-        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Viện bảo tàng",R.drawable.baotang,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tranh phong cảnh",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Địa điểm",R.drawable.phongcanh,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Âm Nhạc",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật", R.drawable.bg, "Những tác phẩm nghệ thuật nổi tiếng aa"));
+        museumTypes.add(new MuseumType(1, "Viện bảo tàng", R.drawable.baotang, "Những tác phẩm nghệ thuật nổi tiếng aa"));
+        museumTypes.add(new MuseumType(1, "Tranh phong cảnh", R.drawable.khampha, "Những tác phẩm nghệ thuật nổi tiếng bb"));
+        museumTypes.add(new MuseumType(1, "Địa điểm", R.drawable.phongcanh, "Những tác phẩm nghệ thuật nổi tiếng bb"));
+        museumTypes.add(new MuseumType(1, "Âm Nhạc", R.drawable.khampha, "Những tác phẩm nghệ thuật nổi tiếng cc"));
+        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật", R.drawable.bg, "Những tác phẩm nghệ thuật nổi tiếng cc"));
+        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật", R.drawable.bg, "Những tác phẩm nghệ thuật nổi tiếng aa"));
 
         recyclerView = view.findViewById(R.id.recyclerViewHome);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        customAdapter = new CustomAdapter(museumTypes,this);
+        customAdapter = new CustomAdapter(museumTypes, this);
         recyclerView.setAdapter(customAdapter);
 
 
     }
 
+    public void search(String text) {
+        customAdapter.getFilter().filter(text);
+    }
+
     @Override
     public void onItemClick(Object o) {
-        Log.d("TAG", "test: "+o.toString());
+        Log.d("TAG", "test: " + o.toString());
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,19 +14,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
+import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.MuseumType;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> implements Filterable {
     ArrayList<MuseumType> arr;
+    ArrayList<MuseumType> museumTypeAll;
     private OnItemClickListener onItemClickListener;
     Context context;
 
     public CustomAdapter(ArrayList<MuseumType> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
+        museumTypeAll = new ArrayList<>();
+        museumTypeAll.addAll(arr);
     }
 
     @NonNull
@@ -45,6 +53,37 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return arr.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<MuseumType> filteredList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filteredList.addAll(arr);
+            } else {
+                for (MuseumType item : museumTypeAll) {
+                    if (VNCharacterUtils.removeAccent(item.getDescription()).toLowerCase().contains(VNCharacterUtils.removeAccent(charSequence.toString()).toLowerCase())) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            arr.clear();
+            arr.addAll((Collection<? extends MuseumType>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout bg;
         TextView title;
@@ -54,8 +93,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bg = itemView.findViewById(R.id.background);
-            description=itemView.findViewById(R.id.description);
-            title=itemView.findViewById(R.id.title);
+            description = itemView.findViewById(R.id.description);
+            title = itemView.findViewById(R.id.title);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
