@@ -12,6 +12,9 @@ public class Museum implements Serializable {
     String description;
     List<Integer> images;
 
+    public Museum() {
+    }
+
     public Museum(Integer id, String name, Integer image, String description) {
         this.id = id;
         this.name = name;

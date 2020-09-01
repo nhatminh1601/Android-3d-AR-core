@@ -8,6 +8,9 @@ public class MuseumType implements Serializable {
     Integer image;
     String description;
 
+    public MuseumType() {
+    }
+
     public MuseumType(Integer id, String name, Integer image, String description) {
         this.id = id;
         this.name = name;

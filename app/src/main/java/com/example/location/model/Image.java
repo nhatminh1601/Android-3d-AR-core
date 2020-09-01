@@ -8,6 +8,9 @@ public class Image implements Serializable {
     String desc;
     Integer group;
 
+    public Image() {
+    }
+
     public Image(Integer id, String url, String desc, Integer group) {
         this.id = id;
         this.url = url;

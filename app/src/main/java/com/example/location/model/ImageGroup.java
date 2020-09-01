@@ -6,6 +6,9 @@ public class ImageGroup implements Serializable {
     Integer id;
     String name;
 
+    public ImageGroup() {
+    }
+
     public ImageGroup(Integer id, String name) {
         this.id = id;
         this.name = name;

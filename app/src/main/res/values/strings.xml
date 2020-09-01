@@ -93,4 +93,10 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="register">ĐĂNG KÝ</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="register_login_hint">Đã có tài khoản? Đăng nhập</string>
+    <string name="login_register_hint">Chưa có tài khoản? Đăng ký</string>
+    <string name="login_email_hint">Email</string>
 </resources>
