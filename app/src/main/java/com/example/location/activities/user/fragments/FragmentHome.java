@@ -1,6 +1,7 @@
 package com.example.location.activities.user.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.MainActivity;
+import com.example.location.activities.user.MuseumActivity;
 import com.example.location.adapters.CustomAdapter;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.MuseumType;
@@ -81,5 +83,9 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
     @Override
     public void onItemClick(Object o) {
         Log.d("TAG", "test: " + o.toString());
+        MuseumType data = (MuseumType) o;
+        Intent intent = new Intent(this.getContext(), MuseumActivity.class);
+        intent.putExtra("data", data);
+        startActivity(intent);
     }
 }

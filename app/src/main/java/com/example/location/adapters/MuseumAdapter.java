@@ -1,14 +1,12 @@
 package com.example.location.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,35 +15,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.location.R;
 import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.model.MuseumType;
+import com.example.location.model.Museum;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> implements Filterable {
-    ArrayList<MuseumType> arr;
-    ArrayList<MuseumType> museumTypeAll;
+public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHolder> implements Filterable {
+    ArrayList<Museum> arr;
+    ArrayList<Museum> museumAll;
     private OnItemClickListener onItemClickListener;
-    Context context;
 
-    public CustomAdapter(ArrayList<MuseumType> arr, OnItemClickListener onItemClickListener) {
+    public MuseumAdapter(ArrayList<Museum> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
-        museumTypeAll = new ArrayList<>();
-        museumTypeAll.addAll(arr);
+        museumAll = new ArrayList<>();
+        museumAll.addAll(arr);
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
+    public MuseumAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_museum, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MuseumAdapter.MyViewHolder holder, int position) {
         holder.getDataBind(arr.get(position), holder.itemView.getContext());
     }
 
@@ -62,11 +59,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<MuseumType> filteredList = new ArrayList<>();
+            List<Museum> filteredList = new ArrayList<>();
             if (charSequence == null || charSequence.length() == 0 || charSequence == "") {
-                filteredList.addAll(museumTypeAll);
+                filteredList.addAll(museumAll);
             } else {
-                for (MuseumType item : museumTypeAll) {
+                for (Museum item : museumAll) {
                     if (VNCharacterUtils.removeAccent(item.getDescription()).toLowerCase().contains(VNCharacterUtils.removeAccent(charSequence.toString()).toLowerCase())) {
                         filteredList.add(item);
                     }
@@ -80,7 +77,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             arr.clear();
-            arr.addAll((Collection<? extends MuseumType>) filterResults.values);
+            arr.addAll((Collection<? extends Museum>) filterResults.values);
             notifyDataSetChanged();
         }
     };
@@ -89,8 +86,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         ImageView bg;
         TextView title;
         TextView description;
-        MuseumType museumType;
-
+        Museum museum;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bg = itemView.findViewById(R.id.background);
@@ -99,17 +95,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(museumType);
+                    onItemClickListener.onItemClick(museum);
                 }
             });
         }
-
-        public void getDataBind(MuseumType museumType, Context context) {
-            this.museumType = museumType;
-            title.setText(museumType.getName());
-            description.setText(museumType.getDescription());
-            bg.setImageDrawable(context.getResources().getDrawable(museumType.getImage()));
-
+        public void getDataBind(Museum museum, Context context) {
+            this.museum = museum;
+            bg.setImageDrawable(context.getResources().getDrawable(museum.getImage()));
+            title.setText(museum.getName());
+            description.setText(museum.getDescription());
         }
     }
 }
