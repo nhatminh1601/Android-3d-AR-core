@@ -9,6 +9,7 @@ public class Image implements Serializable {
     String desc;
     Integer group;
     Integer image;
+    Integer image3D;
     Integer isFavourite;
 
     public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer isFavourite) {
@@ -18,6 +19,17 @@ public class Image implements Serializable {
         this.desc = desc;
         this.group = group;
         this.image = image;
+        this.isFavourite = isFavourite;
+    }
+
+    public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer image3D, Integer isFavourite) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.desc = desc;
+        this.group = group;
+        this.image = image;
+        this.image3D = image3D;
         this.isFavourite = isFavourite;
     }
 
@@ -77,6 +89,14 @@ public class Image implements Serializable {
         this.isFavourite = isFavourite;
     }
 
+    public Integer getImage3D() {
+        return image3D;
+    }
+
+    public void setImage3D(Integer image3D) {
+        this.image3D = image3D;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -86,6 +106,7 @@ public class Image implements Serializable {
                 ", desc='" + desc + '\'' +
                 ", group=" + group +
                 ", image=" + image +
+                ", image3D=" + image3D +
                 ", isFavourite=" + isFavourite +
                 '}';
     }
