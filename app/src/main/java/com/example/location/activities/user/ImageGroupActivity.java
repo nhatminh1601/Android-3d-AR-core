@@ -111,6 +111,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
             case R.id.btnHome:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
