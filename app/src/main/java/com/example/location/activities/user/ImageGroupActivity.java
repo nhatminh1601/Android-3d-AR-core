@@ -45,7 +45,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     }
 
     private void setAdapterPo() {
-        layoutManager2 = new GridLayoutManager(this, 3);
+        layoutManager2 = new GridLayoutManager(this, 2);
         recyclerView3.setLayoutManager(layoutManager2);
         imageAdapter3 = new ImageAdapter(images, this, 1);
         recyclerView3.setAdapter(imageAdapter3);

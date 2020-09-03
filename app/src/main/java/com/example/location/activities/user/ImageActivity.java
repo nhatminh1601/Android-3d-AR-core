@@ -8,6 +8,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -50,5 +52,12 @@ public class ImageActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.close, menu);
+        MenuItem menuItem = menu.findItem(R.id.btnClose);
+        return super.onCreateOptionsMenu(menu);
     }
 }

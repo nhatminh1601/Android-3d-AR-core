@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/search"
-        app:backgroundTint="#000"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:tint="#fff"
         app:layout_anchor="@id/bottomAppBar" />
 
@@ -25,6 +25,7 @@
         app:fabCradleVerticalOffset="5dp"
         android:backgroundTint="@color/colorPrimaryDark"
         style="@style/Widget.MaterialComponents.BottomAppBar"
+        app:menu="@menu/close"
         android:layout_gravity="bottom">
         <RelativeLayout
             android:id="@+id/panelMediaButtons"
