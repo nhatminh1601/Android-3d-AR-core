@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/btnHome"
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:title="Bảo tàng" />
+    <item
+        android:id="@+id/btnCreature"
+        android:icon="@drawable/creature"
+        android:title="Tác phẩm" />
+    <item
+        android:id="@+id/btnExit"
+        android:icon="@drawable/exit"
+        android:title="Đăng xuất"/>
+</menu>

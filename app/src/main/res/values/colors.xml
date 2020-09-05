@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#01579B</color>
     <color name="colorAccent">#3276FE</color>
     <color name="black_overlay">#66000000</color>
+    <!--colors for modern ui-->
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#00AEFF</color>
+    <color name="loginBkColor">#f0f0f0</color>
 </resources>
