@@ -43,6 +43,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,6 +87,8 @@ public class AdminActivity extends AppCompatActivity {
     AutoCompleteTextView extType;
     EditText extUrl;
     Button btnNew;
+
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -156,19 +159,23 @@ public class AdminActivity extends AppCompatActivity {
                 break;
             }
         }
-        String type = "";
-        for (int i = 0; i < museumTypes.size(); i++) {
-            if (museumTypes.get(i).getId().equals(museum.getType())) {
-                type = museumTypes.get(i).getName();
-                break;
+        if (museum != null) {
+            fragmentCreature.renewAdapter(museum);
+
+            String type = "";
+            for (int i = 0; i < museumTypes.size(); i++) {
+                if (museumTypes.get(i).getId().equals(museum.getType())) {
+                    type = museumTypes.get(i).getName();
+                    break;
+                }
             }
-        }
-        extName.setText(museum.getName());
-        extDesc.setText(museum.getDescription());
-        extType.setText(type, false);
-        extUrl.setText(museum.getImage());
-        if (!museum.getImage().isEmpty()){
-            Glide.with(AdminActivity.this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
+            extName.setText(museum.getName());
+            extDesc.setText(museum.getDescription());
+            extType.setText(type, false);
+            extUrl.setText(museum.getImage());
+            if (museum.getImage() != null && !museum.getImage().isEmpty()){
+                Glide.with(AdminActivity.this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
+            }
         }
     }
 
@@ -221,6 +228,7 @@ public class AdminActivity extends AppCompatActivity {
             return;
         }
 
+        floatingActionButton = findViewById(R.id.floating_action_button);
         btnCapture = findViewById(R.id.btnCapture);
         btnChoose= findViewById(R.id.btnChoose);
         imgPicture=findViewById(R.id.imgPicture);
@@ -246,6 +254,14 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 choosePicture();
+            }
+        });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ImageGroupActivity.class);
+                intent.putExtra("userData", user);
+                startActivity(intent);
             }
         });
     }

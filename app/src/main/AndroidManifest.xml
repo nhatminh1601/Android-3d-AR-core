@@ -38,6 +38,7 @@
         <activity android:name=".activities.user.RegisterActivity"></activity>
         <activity android:name=".activities.admin.AdminActivity"></activity>
         <activity android:name=".activities.admin.WelcomeActivity"></activity>
+        <activity android:name=".activities.admin.ImageGroupActivity"></activity>
     </application>
 
 </manifest>

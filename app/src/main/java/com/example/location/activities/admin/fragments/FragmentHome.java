@@ -10,24 +10,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.admin.AdminActivity;
-import com.example.location.adapters.CustomAdapter;
-import com.example.location.dummy.MuseumTypeDummy;
 import com.example.location.interfaces.OnItemClickListener;
-import com.example.location.model.MuseumType;
-
-import java.util.ArrayList;
 
 public class FragmentHome extends Fragment implements OnItemClickListener {
-    ArrayList<MuseumType> museumTypes;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
     View view;
-    CustomAdapter customAdapter;
     Context context;
     AdminActivity main;
 

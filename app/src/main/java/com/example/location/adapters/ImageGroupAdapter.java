@@ -16,34 +16,35 @@ import com.bumptech.glide.Glide;
 import com.example.location.R;
 import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.model.ImageGroup;
 import com.example.location.model.Museum;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHolder> implements Filterable {
-    ArrayList<Museum> arr;
-    ArrayList<Museum> museumAll;
+public class ImageGroupAdapter extends RecyclerView.Adapter<ImageGroupAdapter.MyViewHolder> implements Filterable {
+    ArrayList<ImageGroup> arr;
+    ArrayList<ImageGroup> imageGroups;
     private OnItemClickListener onItemClickListener;
 
-    public MuseumAdapter(ArrayList<Museum> arr, OnItemClickListener onItemClickListener) {
+    public ImageGroupAdapter(ArrayList<ImageGroup> arr, OnItemClickListener onItemClickListener) {
         this.arr = arr;
         this.onItemClickListener = onItemClickListener;
-        museumAll = new ArrayList<>();
-        museumAll.addAll(arr);
+        imageGroups = new ArrayList<>();
+        imageGroups.addAll(arr);
     }
 
     @NonNull
     @Override
-    public MuseumAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_museum, parent, false);
+    public ImageGroupAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MuseumAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageGroupAdapter.MyViewHolder holder, int position) {
         holder.getDataBind(arr.get(position), holder.itemView.getContext());
     }
 
@@ -60,11 +61,11 @@ public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHold
     Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            List<Museum> filteredList = new ArrayList<>();
+            List<ImageGroup> filteredList = new ArrayList<>();
             if (charSequence == null || charSequence.length() == 0 || charSequence == "") {
-                filteredList.addAll(museumAll);
+                filteredList.addAll(imageGroups);
             } else {
-                for (Museum item : museumAll) {
+                for (ImageGroup item : imageGroups) {
                     if (VNCharacterUtils.removeAccent(item.getDescription()).toLowerCase().contains(VNCharacterUtils.removeAccent(charSequence.toString()).toLowerCase())) {
                         filteredList.add(item);
                     }
@@ -78,7 +79,7 @@ public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHold
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             arr.clear();
-            arr.addAll((Collection<? extends Museum>) filterResults.values);
+            arr.addAll((Collection<? extends ImageGroup>) filterResults.values);
             notifyDataSetChanged();
         }
     };
@@ -87,7 +88,8 @@ public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHold
         ImageView bg;
         TextView title;
         TextView description;
-        Museum museum;
+        ImageGroup imageGroup;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bg = itemView.findViewById(R.id.background);
@@ -96,21 +98,18 @@ public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onItemClick(museum);
+                    onItemClickListener.onItemClick(imageGroup);
                 }
             });
         }
-        public void getDataBind(Museum museum, Context context) {
-            this.museum = museum;
-            if (museum.getImage() != null && !museum.getImage().isEmpty()){
-                Glide.with(context).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
-            }
-            else {
-                bg.setImageDrawable(context.getResources().getDrawable(R.drawable.noimage));
-            }
 
-            title.setText(museum.getName());
-            description.setText(museum.getDescription());
+        public void getDataBind(ImageGroup imageGroup, Context context) {
+            this.imageGroup = imageGroup;
+            bg.setImageDrawable(context.getResources().getDrawable(imageGroup.getImage()));
+            title.setText(imageGroup.getName());
+            description.setText(imageGroup.getDescription());
+
         }
+
     }
 }

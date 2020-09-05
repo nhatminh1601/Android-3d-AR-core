@@ -106,7 +106,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.MyView
 
         public void getDataBind(Museum museum, Context context) {
             this.museum = museum;
-            if (!museum.getImage().isEmpty()){
+            if (museum.getImage() != null && !museum.getImage().isEmpty()){
                 Glide.with(context).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
             }
             else {
