@@ -276,7 +276,7 @@ public class AdminActivity extends AppCompatActivity {
         if (view == null) {
             return;
         }
-        
+
         List<String> names = new AbstractList<String>() {
             @Override
             public int size() { return museumTypes.size(); }
