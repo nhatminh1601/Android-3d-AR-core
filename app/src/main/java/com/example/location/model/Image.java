@@ -11,7 +11,6 @@ public class Image implements Serializable {
     Integer image;
     Integer image3D;
     Integer isFavourite;
-
     public Image() {
     }
     public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer isFavourite) {

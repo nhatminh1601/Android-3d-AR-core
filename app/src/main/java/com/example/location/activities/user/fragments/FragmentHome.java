@@ -64,7 +64,7 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
         recyclerView = view.findViewById(R.id.recyclerViewHome);
         layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        customAdapter = new CustomAdapter(museumTypes, this);
+        customAdapter = new CustomAdapter(museumTypes,this);
         recyclerView.setAdapter(customAdapter);
 
 
