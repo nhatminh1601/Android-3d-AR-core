@@ -39,17 +39,14 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
 
     private void setAdapter() {
         museums = new ArrayList<>();
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Washington", R.drawable.baotang, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Metropolitan", R.drawable.bg, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", R.drawable.vn, "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
 
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);

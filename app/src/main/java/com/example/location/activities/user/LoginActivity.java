@@ -1,9 +1,12 @@
 package com.example.location.activities.user;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         alertDialog = new CustomAlertDialog(this);
         getAdminInfo();
@@ -79,7 +85,11 @@ public class LoginActivity extends AppCompatActivity {
         if (!checkEmpty(username, password)) {
             return false;
         }
-
+        ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
+        dialog.setMessage("Authenticate...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)) {
                 Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
@@ -88,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 return true;
             }
         }
-
+        dialog.hide();
         alertDialog.show("Username hoặc password không chính xác!");
         extUsername.requestFocus();
         return false;

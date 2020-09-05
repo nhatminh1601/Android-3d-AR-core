@@ -57,21 +57,16 @@ public class FragmentCreature extends Fragment implements OnItemClickListener {
 
     private void SetAdapter() {
         museums = new ArrayList<>();
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
-        museums.add(new Museum(1, "Test", R.drawable.khampha, "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
+        museums.add(new Museum(1, "Test", "", "this is test"));
         recyclerView = view.findViewById(R.id.recyclerViewDiscover);
         layoutManager=new GridLayoutManager(view.getContext(),3);
         recyclerView.setLayoutManager(layoutManager);

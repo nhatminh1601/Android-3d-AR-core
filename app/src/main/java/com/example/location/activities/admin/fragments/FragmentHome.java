@@ -51,21 +51,8 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home, null);
-        SetAdapter();
+        view = inflater.inflate(R.layout.fragment_museum, null);
         return view;
-    }
-
-    private void SetAdapter() {
-        MuseumTypeDummy museumTypeDummy = new MuseumTypeDummy();
-        museumTypes = (ArrayList<MuseumType>) museumTypeDummy.list();
-        recyclerView = view.findViewById(R.id.recyclerViewHome);
-        layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        customAdapter = new CustomAdapter(museumTypes,this);
-        recyclerView.setAdapter(customAdapter);
-
-
     }
 
     @Override
