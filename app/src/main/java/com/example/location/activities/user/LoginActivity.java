@@ -95,10 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                 intent.putExtra("userData", users.get(i));
                 startActivity(intent);
+                dialog.dismiss();
                 return true;
             }
         }
-        dialog.hide();
+        dialog.dismiss();
         alertDialog.show("Username hoặc password không chính xác!");
         extUsername.requestFocus();
         return false;

@@ -2,6 +2,7 @@ package com.example.location.activities.admin;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -228,6 +229,10 @@ public class AdminActivity extends AppCompatActivity {
             return;
         }
 
+        setView();
+    }
+
+    private void setView() {
         floatingActionButton = findViewById(R.id.floating_action_button);
         btnCapture = findViewById(R.id.btnCapture);
         btnChoose= findViewById(R.id.btnChoose);
@@ -261,12 +266,17 @@ public class AdminActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ImageGroupActivity.class);
                 intent.putExtra("userData", user);
+                intent.putExtra("museumData", museum);
                 startActivity(intent);
             }
         });
     }
 
     private void setupAutoComplete(AutoCompleteTextView view, List<MuseumType> museumTypes) {
+        if (view == null) {
+            return;
+        }
+        
         List<String> names = new AbstractList<String>() {
             @Override
             public int size() { return museumTypes.size(); }
@@ -333,12 +343,19 @@ public class AdminActivity extends AppCompatActivity {
         startActivityForResult(cInt,100);
     }
 
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap OutImage = Bitmap.createScaledBitmap(inImage, 1000, 1000,true);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), OutImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK) {
-            filePath = data.getData();
             selectedBitmap = (Bitmap) data.getExtras().get("data");
             imgPicture.setImageBitmap(selectedBitmap);
+            filePath = getImageUri(getApplicationContext(), selectedBitmap);
+            uploadImage();
         } else if (requestCode == 200 && resultCode == RESULT_OK) {
             try {
 
@@ -346,11 +363,11 @@ public class AdminActivity extends AppCompatActivity {
                 filePath = imageUri;
                 selectedBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 imgPicture.setImageBitmap(selectedBitmap);
+                uploadImage();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        uploadImage();
     }
 
     private void uploadImage() {

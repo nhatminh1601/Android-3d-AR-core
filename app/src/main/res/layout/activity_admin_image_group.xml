@@ -5,26 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".activities.admin.AdminActivity">
+    tools:context=".activities.admin.ImageGroupActivity">
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="2dp"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frameAdminLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        android:layout_marginBottom="56dp"
+        android:layout_height="wrap_content" />
 
-        />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomAdminNav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#fff"
-        app:itemIconTint="@color/btn_bottom"
-        app:itemTextColor="@color/btn_bottom"
-        app:menu="@menu/bottom_admin_menu" />
-
-
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/loginButton"
+        android:text="Thêm vào bảo tàng"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
