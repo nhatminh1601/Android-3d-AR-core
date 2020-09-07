@@ -17,7 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.google.ar.core" android:value="required" />
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
+        <meta-data
+            android:name="com.google.android.ar.API_KEY"
+            android:value="AIzaSyAEDbwcHfxrK8SzBwcHW9To54i95rWo8yE" />
+
         <activity
             android:name=".activities.user.ImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -26,15 +32,12 @@
         <activity android:name=".activities.user.ImageGroupActivity" />
         <activity android:name=".activities.user.MuseumActivity" />
         <activity android:name=".activities.MainActivity">
-
-        </activity>
-        <activity android:name=".activities.user.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.user.LoginActivity"></activity>
         <activity android:name=".activities.user.RegisterActivity"></activity>
         <activity android:name=".activities.admin.AdminActivity"></activity>
         <activity android:name=".activities.admin.WelcomeActivity"></activity>
