@@ -6,58 +6,74 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/fragment_ar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnSearch"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/bottomAppBar"
+        app:tint="#fff" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/search"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:tint="#fff"
-        app:layout_anchor="@id/bottomAppBar" />
+        android:layout_gravity="bottom|center"
+        android:id="@+id/BtnExitFull"
+        android:src="@drawable/fullscreen"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
+        app:tint="#fff" />
 
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/menu"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/colorAccent"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="5dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        style="@style/Widget.MaterialComponents.BottomAppBar"
         app:menu="@menu/close"
-        android:layout_gravity="bottom">
+        app:navigationIcon="@drawable/back">
+
         <RelativeLayout
             android:id="@+id/panelMediaButtons"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="center">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_alignParentLeft="true"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/camera"
-            app:fabSize="normal"
-            app:backgroundTint="#00FFFFFF"
-            app:tint="#fff"
-            app:maxImageSize="36dp"
-            android:background="@android:color/transparent"
-           />
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:fabSize="normal"
-            app:backgroundTint="#00FFFFFF"
-            app:tint="#fff"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:src="@drawable/videocam"
-            app:maxImageSize="36dp"
-            />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/camera"
+                app:backgroundTint="#00FFFFFF"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:fabSize="normal"
+                app:maxImageSize="36dp"
+                app:tint="#fff" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/videocam"
+                app:backgroundTint="#00FFFFFF"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:fabSize="normal"
+                app:maxImageSize="36dp"
+                app:tint="#fff" />
         </RelativeLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
