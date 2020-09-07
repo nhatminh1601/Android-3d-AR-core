@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.admin.AdminActivity;
+import com.example.location.activities.admin.ImageActivity;
 import com.example.location.activities.admin.ImageGroupActivity;
 import com.example.location.adapters.ImageGroupAdapter;
 import com.example.location.dummy.ImageGroupDummy;
@@ -96,6 +97,10 @@ public class FragmentCreature extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(Object o) {
+        ImageGroup imageGroup = (ImageGroup) o;
+        Intent intent = new Intent(view.getContext(), ImageActivity.class);
+        intent.putExtra("imageGroupData", imageGroup);
+        startActivity(intent);
         Log.d("TAG", "aaaa: "+o.toString());
     }
 }

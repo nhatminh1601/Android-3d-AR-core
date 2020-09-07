@@ -39,6 +39,7 @@
         <activity android:name=".activities.admin.AdminActivity"></activity>
         <activity android:name=".activities.admin.WelcomeActivity"></activity>
         <activity android:name=".activities.admin.ImageGroupActivity"></activity>
+        <activity android:name=".activities.admin.ImageActivity"></activity>
     </application>
 
 </manifest>
