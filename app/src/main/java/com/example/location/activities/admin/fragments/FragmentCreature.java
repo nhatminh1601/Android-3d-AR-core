@@ -1,6 +1,7 @@
 package com.example.location.activities.admin.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.admin.AdminActivity;
+import com.example.location.activities.admin.ImageGroupActivity;
 import com.example.location.adapters.ImageGroupAdapter;
 import com.example.location.dummy.ImageGroupDummy;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.ImageGroup;
 import com.example.location.model.Museum;
+import com.example.location.model.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +84,7 @@ public class FragmentCreature extends Fragment implements OnItemClickListener {
             return;
         }
 
+        imageGroups = new ArrayList<>();
         ImageGroupDummy imageGroupDummy = new ImageGroupDummy();
         List<ImageGroup> list = imageGroupDummy.list();
         for (int i = 0; i < list.size(); i++) {

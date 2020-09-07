@@ -15,6 +15,8 @@ public class ImageGroupDummy {
         imageGroups.add(new ImageGroup(3, "Chim","Những tác phẩm nghệ thuật nổi tiếng", R.drawable.bg));
         imageGroups.add(new ImageGroup(4, "Thực vật","Những tác phẩm nghệ thuật nổi tiếng", R.drawable.bg));
         imageGroups.add(new ImageGroup(5, "Xương","Những tác phẩm nghệ thuật nổi tiếng", R.drawable.bg));
+        imageGroups.add(new ImageGroup(6, "Tranh","Những tác phẩm nghệ thuật nổi tiếng", R.drawable.bg));
+        imageGroups.add(new ImageGroup(7, "Chiến tranh","Những tác phẩm nghệ thuật nổi tiếng", R.drawable.bg));
     }
 
     public List<ImageGroup> list() {

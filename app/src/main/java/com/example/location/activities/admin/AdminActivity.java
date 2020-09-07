@@ -64,6 +64,7 @@ import java.util.UUID;
 public class AdminActivity extends AppCompatActivity {
     DatabaseReference museumsRef = FirebaseDatabase.getInstance().getReference("museums");
     StorageReference storageReference = FirebaseStorage.getInstance().getReference("images");
+    ValueEventListener valueEventListener;
 
     CustomAlertDialog alertDialog;
     BottomNavigationView bottomNavigationView;
@@ -88,7 +89,6 @@ public class AdminActivity extends AppCompatActivity {
     AutoCompleteTextView extType;
     EditText extUrl;
     Button btnNew;
-
     FloatingActionButton floatingActionButton;
 
     @Override
@@ -99,12 +99,20 @@ public class AdminActivity extends AppCompatActivity {
         requestPermission();
         alertDialog = new CustomAlertDialog(this);
         user = (User) getIntent().getSerializableExtra("userData");
-        getMuseumTypeList();
-        getMuseumList();
         setContentView(R.layout.activity_admin);
         bottomNavigationView = findViewById(R.id.bottomAdminNav);
         handleFragment();
         handleBottomNavigation();
+        getMuseumTypeList();
+        getMuseumList();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if ( museumsRef != null ) {
+            museumsRef.removeEventListener(valueEventListener);
+        }
     }
 
     private void updateMuseum(String name, String type, String desc, String url) {
@@ -153,7 +161,7 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
-    private void setMuseumData() {
+    private void setMuseumData(Fragment fragment) {
         for (int i = 0; i < museums.size(); i++) {
             if (museums.get(i).getUser().equals(user.getId())) {
                 museum = museums.get(i);
@@ -161,21 +169,24 @@ public class AdminActivity extends AppCompatActivity {
             }
         }
         if (museum != null) {
-            fragmentCreature.renewAdapter(museum);
-
-            String type = "";
-            for (int i = 0; i < museumTypes.size(); i++) {
-                if (museumTypes.get(i).getId().equals(museum.getType())) {
-                    type = museumTypes.get(i).getName();
-                    break;
+            if (fragment == fragmentHome) {
+                String type = "";
+                for (int i = 0; i < museumTypes.size(); i++) {
+                    if (museumTypes.get(i).getId().equals(museum.getType())) {
+                        type = museumTypes.get(i).getName();
+                        break;
+                    }
+                }
+                extName.setText(museum.getName());
+                extDesc.setText(museum.getDescription());
+                extType.setText(type, false);
+                extUrl.setText(museum.getImage());
+                if (museum.getImage() != null && !museum.getImage().isEmpty()){
+                    Glide.with(AdminActivity.this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
                 }
             }
-            extName.setText(museum.getName());
-            extDesc.setText(museum.getDescription());
-            extType.setText(type, false);
-            extUrl.setText(museum.getImage());
-            if (museum.getImage() != null && !museum.getImage().isEmpty()){
-                Glide.with(AdminActivity.this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
+            if (fragment == fragmentCreature) {
+                fragmentCreature.renewAdapter(museum);
             }
         }
     }
@@ -184,8 +195,9 @@ public class AdminActivity extends AppCompatActivity {
         fragmentHome = FragmentHome.newInstance();
         fragmentCreature = FragmentCreature.newInstance();
         ft = getSupportFragmentManager();
-        ft.beginTransaction().add(R.id.frameAdminLayout, fragmentHome,"1").hide(fragmentHome).commit();
+        ft.beginTransaction().add(R.id.frameAdminLayout, fragmentHome,"1").commit();
         ft.beginTransaction().add(R.id.frameAdminLayout, fragmentCreature,"2").commit();
+        ft.beginTransaction().hide(fragmentHome).show(fragmentCreature).commit();
         active = fragmentCreature;
     }
 
@@ -197,10 +209,14 @@ public class AdminActivity extends AppCompatActivity {
                     case R.id.btnHome:
                         ft.beginTransaction().hide(active).show(fragmentHome).commit();
                         active = fragmentHome;
+                        setView(active);
+                        setMuseumData(active);
                         return true;
                     case R.id.btnCreature:
                         ft.beginTransaction().hide(active).show(fragmentCreature).commit();
                         active = fragmentCreature;
+                        setView(active);
+                        setMuseumData(active);
                         return true;
                     case R.id.btnExit:
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -213,63 +229,50 @@ public class AdminActivity extends AppCompatActivity {
         });
     }
 
-    private void setLayout() {
-        boolean check = false;
-        for (int i = 0; i < museums.size(); i++) {
-            if (museums.get(i).getUser().equals(user.getId())) {
-                check = true;
-                break;
-            }
+    private void setView(Fragment fragment) {
+        if (fragment == fragmentHome) {
+            btnCapture = findViewById(R.id.btnCapture);
+            btnChoose= findViewById(R.id.btnChoose);
+            imgPicture=findViewById(R.id.imgPicture);
+            extName = findViewById(R.id.editTextName);
+            extType = findViewById(R.id.editTextType);
+            setupAutoComplete(extType, museumTypes);
+            extDesc = findViewById(R.id.editTextDesc);
+            extUrl = findViewById(R.id.editTextUrl);
+            btnNew = findViewById(R.id.saveButton);
+            btnNew.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    updateMuseum(extName.getText().toString(), extType.getText().toString(), extDesc.getText().toString(), extUrl.getText().toString());
+                }
+            });
+            btnCapture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    capturePicture();
+                }
+            });
+            btnChoose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    choosePicture();
+                }
+            });
+        }
+        if (fragment == fragmentCreature) {
+            floatingActionButton = findViewById(R.id.floating_action_button);
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), ImageGroupActivity.class);
+                    intent.putExtra("userData", user);
+                    intent.putExtra("museumData", museum);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
 
-        if (!check) {
-            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-            intent.putExtra("userData", user);
-            startActivity(intent);
-            return;
-        }
-
-        setView();
-    }
-
-    private void setView() {
-        floatingActionButton = findViewById(R.id.floating_action_button);
-        btnCapture = findViewById(R.id.btnCapture);
-        btnChoose= findViewById(R.id.btnChoose);
-        imgPicture=findViewById(R.id.imgPicture);
-        extName = findViewById(R.id.editTextName);
-        extType = findViewById(R.id.editTextType);
-        setupAutoComplete(extType, museumTypes);
-        extDesc = findViewById(R.id.editTextDesc);
-        extUrl = findViewById(R.id.editTextUrl);
-        btnNew = findViewById(R.id.saveButton);
-        btnNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateMuseum(extName.getText().toString(), extType.getText().toString(), extDesc.getText().toString(), extUrl.getText().toString());
-            }
-        });
-        btnCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                capturePicture();
-            }
-        });
-        btnChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                choosePicture();
-            }
-        });
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ImageGroupActivity.class);
-                intent.putExtra("userData", user);
-                intent.putExtra("museumData", museum);
-                startActivity(intent);
-            }
-        });
     }
 
     private void setupAutoComplete(AutoCompleteTextView view, List<MuseumType> museumTypes) {
@@ -311,7 +314,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void getMuseumList() {
-        museumsRef.addValueEventListener(new ValueEventListener() {
+        ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -320,8 +323,8 @@ public class AdminActivity extends AppCompatActivity {
                         museums.add(museum);
                     }
                 }
-                setLayout();
-                setMuseumData();
+                setView(active);
+                setMuseumData(active);
                 Log.d("TAG", "Value is: " + dataSnapshot.getValue());
             }
 
@@ -329,7 +332,9 @@ public class AdminActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 Log.w("TAG", "Failed to read value.", error.toException());
             }
-        });
+        };
+        valueEventListener = eventListener;
+        museumsRef.addValueEventListener(eventListener);
     }
 
     private void choosePicture() {
