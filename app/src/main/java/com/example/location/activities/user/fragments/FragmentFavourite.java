@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.location.R;
 import com.example.location.activities.MainActivity;
@@ -71,7 +73,7 @@ public class FragmentFavourite extends Fragment implements OnItemClickListener {
         images.add(new Image(1,"Hình 1","test", "hình ảnh phong cảnh",1,R.drawable.khampha,1));
 
         recyclerView = view.findViewById(R.id.recyclerViewFavourite);
-        layoutManager= new GridLayoutManager(view.getContext(),2);
+        layoutManager= new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         favouriteAdapter= new FavouriteAdapter(images,this);
         recyclerView.setAdapter(favouriteAdapter);
