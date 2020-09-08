@@ -32,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.example.location.R;
+import com.example.location.activities.HomeActivity;
 import com.example.location.activities.admin.fragments.FragmentCreature;
 import com.example.location.activities.admin.fragments.FragmentHome;
 import com.example.location.activities.user.LoginActivity;
@@ -219,7 +220,7 @@ public class AdminActivity extends AppCompatActivity {
                         setMuseumData(active);
                         return true;
                     case R.id.btnExit:
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                         finish();
                         return true;
