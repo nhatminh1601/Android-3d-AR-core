@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -38,12 +40,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     @NonNull
     @Override
     public ImageAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (type != 0) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_full, parent, false);
+        if (type == 1) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_grid, parent, false);
-        } else {
+        }
+        if (type == 0) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_image_horizontal, parent, false);
         }
+
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -101,15 +105,19 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
             bg = itemView.findViewById(R.id.background);
             description = itemView.findViewById(R.id.description);
             title = itemView.findViewById(R.id.title);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Animation myAnim = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.click);
+                    itemView.startAnimation(myAnim);
                     onItemClickListener.onItemClick(image);
                 }
             });
         }
 
         public void getDataBind(Image image, Context context) {
+
             this.image = image;
             title.setText(image.getName());
             description.setText(image.getDesc());

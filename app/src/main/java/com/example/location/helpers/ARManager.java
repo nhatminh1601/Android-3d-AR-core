@@ -26,11 +26,11 @@ public class ARManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void create3DModel(Anchor anchor) {
+    public void create3DModel(Anchor anchor, String name) {
         //Log.d("TAG", "create3DModel: "+type);
         ModelRenderable
                 .builder()
-                .setSource(context, RenderableSource.builder().setSource(context, Uri.parse("aaa.gltf"),
+                .setSource(context, RenderableSource.builder().setSource(context, Uri.parse("String name"),
                         RenderableSource.SourceType.GLTF2).setScale(1.0f)
                         .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
@@ -46,11 +46,11 @@ public class ARManager {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void create3DModelSFB(Anchor anchor) {
+    public void create3DModelSFB(Anchor anchor, String name) {
         //Log.d("TAG", "create3DModel: "+type);
         ModelRenderable
                 .builder()
-                .setSource(context, Uri.parse("dinosaur/allosaurus.sfb"))
+                .setSource(context, Uri.parse(name))
                 .build()
                 .thenAccept(modelRenderable -> {
                     addModelToScene(anchor, modelRenderable);
