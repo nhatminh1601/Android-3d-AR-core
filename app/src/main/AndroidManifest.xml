@@ -37,6 +37,8 @@
         <activity android:name=".activities.user.RegisterActivity"></activity>
         <activity android:name=".activities.admin.AdminActivity"></activity>
         <activity android:name=".activities.admin.WelcomeActivity"></activity>
+        <activity android:name=".activities.admin.ImageGroupActivity"></activity>
+        <activity android:name=".activities.admin.ImageActivity"></activity>
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
