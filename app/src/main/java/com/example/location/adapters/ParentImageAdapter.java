@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
@@ -38,8 +39,8 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
         ParentImage parentImage = parentImages.get(position);
         parentViewHolder.parentItemTitle.setText(parentImage.getName());
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(parentViewHolder.childRecyclerView.getContext(), 2);
-        ImageAdapter childItemAdapter = new ImageAdapter((ArrayList) parentImage.getImages(), onItemClickListener, 1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        ImageAdapter childItemAdapter = new ImageAdapter((ArrayList) parentImage.getImages(), onItemClickListener, 0);
         parentViewHolder.childRecyclerView.setLayoutManager(layoutManager);
         parentViewHolder.childRecyclerView.setAdapter(childItemAdapter);
         parentViewHolder.childRecyclerView.setRecycledViewPool(viewPool);
