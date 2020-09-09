@@ -22,12 +22,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/bg" />
+                app:srcCompat="@drawable/noimage" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giới thiệu" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,7 +47,6 @@
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
-                        android:paddingHorizontal="5dp"
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:layout_height="wrap_content"

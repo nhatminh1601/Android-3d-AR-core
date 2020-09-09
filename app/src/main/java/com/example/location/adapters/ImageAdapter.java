@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.location.R;
 import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
@@ -121,7 +122,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
             this.image = image;
             title.setText(image.getName());
             description.setText(image.getDesc());
-            bg.setImageDrawable(context.getResources().getDrawable(image.getImage()));
+            if (image.getUrl() != null && !image.getUrl().isEmpty()){
+                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
+            }
+            else if (image.getImage() != null) {
+                bg.setImageDrawable(context.getResources().getDrawable(image.getImage()));
+            }
         }
     }
 }

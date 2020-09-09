@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         active = fragmentFavourite;
                         return true;
                     case R.id.btnNavigate:
-                        toolbar.setTitle("khám phá");
+                        toolbar.setTitle("Khám phá");
                         ft.beginTransaction().hide(active).show(fragmentDiscover).commit();
                         active = fragmentDiscover;
                         return true;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.toobar, menu);
         MenuItem menuItem = menu.findItem(R.id.btnSearch);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("tìm kiếm mọi thứ");
+        searchView.setQueryHint("Tìm kiếm mọi thứ");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

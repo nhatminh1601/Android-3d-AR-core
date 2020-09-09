@@ -11,8 +11,18 @@ public class Image implements Serializable {
     Integer image;
     Integer image3D;
     Integer isFavourite;
+
     public Image() {
     }
+
+    public Image(Integer id, String name, String url, String desc, Integer group) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.desc = desc;
+        this.group = group;
+    }
+
     public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer isFavourite) {
         this.id = id;
         this.name = name;

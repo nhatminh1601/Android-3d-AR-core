@@ -14,12 +14,19 @@ import com.example.location.adapters.MuseumAdapter;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Museum;
 import com.example.location.model.MuseumType;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MuseumActivity extends AppCompatActivity implements OnItemClickListener {
+    DatabaseReference museumsRef = FirebaseDatabase.getInstance().getReference("museums");
     MuseumType museumType;
-    ArrayList<Museum> museums;
+    List<Museum> museums = new ArrayList<>();;
     RecyclerView recyclerView;
     MuseumAdapter museumAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -29,28 +36,48 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_museum);
-        museumType = (MuseumType) getIntent().getSerializableExtra("data");
+        museumType = (MuseumType) getIntent().getSerializableExtra("museumTypeData");
         recyclerView = findViewById(R.id.recyclerview);
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Địa điểm Bảo tàng");
+        actionBar.setTitle(museumType.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setAdapter();
+        getMuseumList();
+    }
+
+    private void getMuseumList() {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Museum museum = child.getValue(Museum.class);
+                    if(museum != null){
+                        museums.add(museum);
+                    }
+                }
+                setAdapter();
+                Log.d("TAG", "Value is: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        };
+        museumsRef.addValueEventListener(eventListener);
     }
 
     private void setAdapter() {
-        museums = new ArrayList<>();
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
-        museums.add(new Museum(1, "Việt Nam", "", "Viện bảo tàng mỹ thuật Việt Nam"));
+        ArrayList<Museum> museumList = new ArrayList<>();
+
+        for (int i = 0; i < museums.size(); i++) {
+            if (museums.get(i).getType().equals(museumType.getId())) {
+                museumList.add(museums.get(i));
+            }
+        }
 
         layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        museumAdapter = new MuseumAdapter(museums, this);
+        museumAdapter = new MuseumAdapter(museumList, this);
         recyclerView.setAdapter(museumAdapter);
 
 
@@ -60,7 +87,7 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
     public void onItemClick(Object o) {
         Museum data = (Museum) o;
         Intent intent = new Intent(this, ImageGroupActivity.class);
-        intent.putExtra("data", data);
+        intent.putExtra("museumData", data);
         startActivity(intent);
     }
 

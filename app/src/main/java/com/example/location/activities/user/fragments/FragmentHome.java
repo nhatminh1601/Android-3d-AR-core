@@ -79,7 +79,7 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
         Log.d("TAG", "test: " + o.toString());
         MuseumType data = (MuseumType) o;
         Intent intent = new Intent(this.getContext(), MuseumActivity.class);
-        intent.putExtra("data", data);
+        intent.putExtra("museumTypeData", data);
         startActivity(intent);
     }
 }
