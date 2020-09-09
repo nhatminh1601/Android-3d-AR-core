@@ -11,12 +11,12 @@ public class MuseumTypeDummy {
 
     public MuseumTypeDummy() {
         museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật", R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Viện bảo tàng",R.drawable.baotang,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tranh phong cảnh",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Địa điểm",R.drawable.phongcanh,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Âm Nhạc",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
-        museumTypes.add(new MuseumType(1, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(2, "Viện bảo tàng",R.drawable.baotang,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(3, "Tranh phong cảnh",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(4, "Địa điểm",R.drawable.phongcanh,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(5, "Âm Nhạc",R.drawable.khampha,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(6, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
+        museumTypes.add(new MuseumType(7, "Tác phẩm nghệ thuật",R.drawable.bg,"Những tác phẩm nghệ thuật nổi tiếng"));
     }
 
     public List<MuseumType> list() {

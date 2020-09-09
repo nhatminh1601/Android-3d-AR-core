@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Museum</string>
+    <string name="app_desc">Mang cả thế giới đến bạn</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_fragment_home">ScrollingActivity</string>
@@ -102,5 +103,6 @@
     <string name="museum_name_hint">Tên bảo tàng</string>
     <string name="museum_desc_hint">Mô tả</string>
     <string name="museum_type_hint">Thể loại</string>
+    <string name="museum_url_hint">Url hình ảnh</string>
     <string name="title_activity_image">FullscreenActivity</string>
 </resources>

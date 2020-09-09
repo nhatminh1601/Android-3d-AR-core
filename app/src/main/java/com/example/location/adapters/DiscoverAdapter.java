@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.location.R;
 import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
@@ -109,7 +110,12 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.MyView
 
         public void getDataBind(Museum museum, Context context) {
             this.museum = museum;
-            bg.setImageDrawable(context.getResources().getDrawable(museum.getImage()));
+            if (museum.getImage() != null && !museum.getImage().isEmpty()){
+                Glide.with(context).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
+            }
+            else {
+                bg.setImageDrawable(context.getResources().getDrawable(R.drawable.noimage));
+            }
             title.setText(museum.getName());
             description.setText(museum.getDescription());
 

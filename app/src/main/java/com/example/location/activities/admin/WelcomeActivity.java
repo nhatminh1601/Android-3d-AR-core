@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.location.R;
 import com.example.location.dummy.MuseumTypeDummy;
 import com.example.location.helpers.CustomAlertDialog;
+import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Museum;
 import com.example.location.model.MuseumType;
 import com.example.location.model.User;
@@ -126,6 +128,12 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 view.showDropDown();
                 return;
+            }
+        });
+        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                extDesc.requestFocus();
             }
         });
     }
