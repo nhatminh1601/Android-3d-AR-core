@@ -22,10 +22,14 @@ import com.example.location.R;
 import com.example.location.activities.MainActivity;
 import com.example.location.activities.admin.AdminActivity;
 import com.example.location.adapters.ImageAdapter;
+import com.example.location.adapters.ParentImageAdapter;
+import com.example.location.dummy.ImageGroupDummy;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Image;
+import com.example.location.model.ImageGroup;
 import com.example.location.model.Museum;
 import com.example.location.model.MuseumType;
+import com.example.location.model.ParentImage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,29 +42,42 @@ import java.util.List;
 public class ImageGroupActivity extends AppCompatActivity implements OnItemClickListener {
     DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
     Museum museum;
+    List<ImageGroup> imageGroups = new ArrayList<>();
     ArrayList<Image> images = new ArrayList<>();
-    RecyclerView recyclerView1, recyclerView2, recyclerView3;
-    ImageAdapter imageAdapter1, imageAdapter2, imageAdapter3;
-    RecyclerView.LayoutManager layoutManager, layoutManager1, layoutManager2;
+    ArrayList<ParentImage> parentImages = new ArrayList<>();
+    RecyclerView recyclerView;
     ActionBar actionBar;
 
     ImageView imgPicture;
     TextView textViewDesc;
-    TextView title3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         museum = (Museum) getIntent().getSerializableExtra("museumData");
         setContentView(R.layout.activity_image_group);
-        recyclerView1 = findViewById(R.id.recyclerview1);
-        recyclerView2 = findViewById(R.id.recyclerview2);
-        recyclerView3 = findViewById(R.id.recyclerview3);
+        recyclerView = findViewById(R.id.recyclerview);
         actionBar = getSupportActionBar();
         actionBar.setTitle(museum.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
+        setImageGroup();
         getImageList();
         setView();
+    }
+
+    private void setImageGroup() {
+        ImageGroupDummy imageGroupDummy = new ImageGroupDummy();
+        List<ImageGroup> groupList = imageGroupDummy.list();
+        for (int i = 0; i < groupList.size(); i++) {
+            if (museum.getImages().contains(groupList.get(i).getId())) {
+                imageGroups.add(groupList.get(i));
+            }
+        }
+
+        for (int i = 0; i < imageGroups.size(); i++) {
+            ParentImage parentImage = new ParentImage(imageGroups.get(i).getId(), imageGroups.get(i).getName(), new ArrayList<>());
+            parentImages.add(parentImage);
+        }
     }
 
     private void getImageList() {
@@ -87,7 +104,6 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
 
     private void setView() {
         textViewDesc = findViewById(R.id.textViewDesc);
-        title3 = findViewById(R.id.title3);
         imgPicture = findViewById(R.id.imageView);
 
         textViewDesc.setText(museum.getDescription());
@@ -97,49 +113,18 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     }
 
     private void setAdapterPo() {
-        ArrayList<Image> imageList = new ArrayList<>();
         for (int i = 0; i < images.size(); i++) {
-            if (museum.getImages().contains(images.get(i).getId())) {
-                imageList.add(images.get(i));
+            for (int j = 0; j < parentImages.size(); j++) {
+                if (images.get(i).getGroup().equals(parentImages.get(j).getId())) {
+                    parentImages.get(j).addImage(images.get(i));
+                }
             }
         }
 
-        layoutManager2 = new GridLayoutManager(this, 2);
-        recyclerView3.setLayoutManager(layoutManager2);
-        imageAdapter3 = new ImageAdapter(imageList, this, 1);
-        recyclerView3.setAdapter(imageAdapter3);
-    }
-
-    private void setAdapterNew() {
-        layoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView2.setLayoutManager(layoutManager1);
-        imageAdapter2 = new ImageAdapter(images, this, 0);
-        recyclerView2.setAdapter(imageAdapter2);
-
-    }
-
-    private void setAdapter() {
-        images = new ArrayList<>();
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView1.setLayoutManager(layoutManager);
-        imageAdapter1 = new ImageAdapter(images, this, 0);
-        recyclerView1.setAdapter(imageAdapter1);
-
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        ParentImageAdapter parentImageAdapter = new ParentImageAdapter(parentImages, this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(parentImageAdapter);
     }
 
     @Override
