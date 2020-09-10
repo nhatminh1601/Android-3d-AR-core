@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:background="#4D000000"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg" />
+                android:src="@drawable/noimage" />
 
             <ImageView
                 android:layout_width="match_parent"
