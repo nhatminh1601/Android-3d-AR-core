@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.location">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -11,13 +12,14 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:targetApi="q">
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
@@ -29,16 +31,17 @@
             android:name=".activities.user.ImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_image"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme" />
         <activity android:name=".activities.user.ImageGroupActivity" />
         <activity android:name=".activities.user.MuseumActivity" />
-        <activity android:name=".activities.MainActivity"></activity>
-        <activity android:name=".activities.user.LoginActivity"></activity>
-        <activity android:name=".activities.user.RegisterActivity"></activity>
-        <activity android:name=".activities.admin.AdminActivity"></activity>
-        <activity android:name=".activities.admin.WelcomeActivity"></activity>
-        <activity android:name=".activities.admin.ImageGroupActivity"></activity>
-        <activity android:name=".activities.admin.ImageActivity"></activity>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.user.LoginActivity" />
+        <activity android:name=".activities.user.RegisterActivity" />
+        <activity android:name=".activities.admin.AdminActivity" />
+        <activity android:name=".activities.admin.WelcomeActivity" />
+        <activity android:name=".activities.admin.ImageGroupActivity" />
+        <activity android:name=".activities.admin.ImageActivity" />
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

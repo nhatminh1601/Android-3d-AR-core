@@ -4,10 +4,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +47,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 public class ImageActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
     private static final double MIN_OPENGL_VERSION = 3.0;
+    private static final int CAMERA_PERMISSION_CODE = 100 ;
     public ArFragment arFragment;
     ARManager arManager;
     BottomAppBar bottomAppBar;
@@ -218,5 +223,44 @@ public class ImageActivity extends AppCompatActivity {
 
     public void setImage(Image data) {
         imageAnchor = data.getUrl();
+    }
+
+    private static final String REQUIRED_PERMISSIONS[] = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
+    /**
+     * Check to see we have the necessary permissions for this app.
+     */
+    public static boolean hasCameraPermission(Activity activity) {
+        for (String p : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(activity, p) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check to see we have the necessary permissions for this app,
+     * and ask for them if we don't.
+     */
+    public static void requestCameraPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS,
+                CAMERA_PERMISSION_CODE);
+    }
+
+    /**
+     * Check to see if we need to show the rationale for this permission.
+     */
+    public static boolean shouldShowRequestPermissionRationale(Activity activity) {
+        for (String p : REQUIRED_PERMISSIONS) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, p)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
