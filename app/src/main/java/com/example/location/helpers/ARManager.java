@@ -56,8 +56,8 @@ public class ARManager {
                     addModelToScene(anchor, modelRenderable);
                 })
                 .exceptionally(throwable -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage(throwable.getMessage()).show();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    builder.setMessage(throwable.getMessage()).show();
                     return null;
                 });
 
@@ -75,7 +75,7 @@ public class ARManager {
         // AnchorNode cannot be zoomed in or moved so a TransformableNode is created where AnchorNode is the parent
         TransformableNode transformableNode = new TransformableNode(arFragment.getTransformationSystem());
         // Setting the angle of 3D model
-        transformableNode.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 1f, 0), 180));
+//        transformableNode.setLocalRotation(Quaternion.axisAngle(new Vector3(0, 1f, 0), 180));
         transformableNode.setParent(anchorNode);
         //adding the model to the transformable node
         transformableNode.setRenderable(modelRenderable);

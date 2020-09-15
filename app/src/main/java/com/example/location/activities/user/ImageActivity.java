@@ -4,17 +4,23 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.CamcorderProfile;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +37,7 @@ import com.example.location.activities.user.fragments.ItemListDialogFragment;
 import com.example.location.helpers.ARManager;
 import com.example.location.helpers.AnimationManager;
 import com.example.location.helpers.TakePhoto;
+import com.example.location.helpers.VideoRecorder;
 import com.example.location.model.Image;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -43,6 +50,8 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+
+import java.io.File;
 
 public class ImageActivity extends AppCompatActivity {
     private static final String TAG = "TAG";
@@ -57,6 +66,8 @@ public class ImageActivity extends AppCompatActivity {
     TakePhoto takePhoto;
     private Context _context;
     String imageAnchor = "dinosaur/allosaurus.sfb";
+    CoordinatorLayout main_content;
+    VideoRecorder videoRecorder;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -79,16 +90,53 @@ public class ImageActivity extends AppCompatActivity {
             arManager.create3DModelSFB(anchor, imageAnchor);
         });
         _context = this;
+
         setListFragmentImage();
         takePhoto();
+        Recording();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void Recording() {
+        videoRecorder= new VideoRecorder();
+        int orientation = getResources().getConfiguration().orientation;
+        videoRecorder.setVideoQuality(CamcorderProfile.QUALITY_2160P, orientation);
+        videoRecorder.setSceneView(arFragment.getArSceneView());
+        fabVideo.setOnClickListener(this::toggleRecording);
+        fabVideo.setEnabled(true);
+        //fabVideo.setImageResource(R.drawable.camera);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void toggleRecording(View unusedView) {
+        boolean recording = videoRecorder.onToggleRecord();
+        if (recording) {
+            fabVideo.setImageResource(R.drawable.videocam_off);
+        } else {
+            fabVideo.setImageResource(R.drawable.videocam);
+            String videoPath = videoRecorder.getVideoPath().getAbsolutePath();
+
+            // Send  notification of updated content.
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Video.Media.TITLE, "Sceneform Video");
+            values.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
+            values.put(MediaStore.Video.Media.DATA, videoPath);
+            getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
+            File photoFile = new File(videoPath);
+            Uri photoURI = FileProvider.getUriForFile(this,
+                    this.getPackageName() + ".ar.codelab.name.provider",
+                    photoFile);
+            Intent intent = new Intent(Intent.ACTION_VIEW, photoURI);
+            intent.setDataAndType(photoURI, "video/*");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+        }
+    }
     private void takePhoto() {
         fabCamera.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                takePhoto.takePhoto(arFragment.getArSceneView(), _context);
+                takePhoto.takePhoto(arFragment.getArSceneView(), _context,main_content);
             }
         });
     }
@@ -104,6 +152,7 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void setId() {
+        main_content= findViewById(R.id.main_content);
         fabCamera = findViewById(R.id.btnCamera);
         fabVideo = findViewById(R.id.btnVideo);
         fabSearch = findViewById(R.id.btnSearch);
