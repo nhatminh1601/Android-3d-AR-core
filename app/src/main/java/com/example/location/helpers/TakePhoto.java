@@ -2,7 +2,6 @@ package com.example.location.helpers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.media.MediaScannerConnection;
@@ -11,15 +10,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.PixelCopy;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.FileProvider;
 
-import com.example.location.BuildConfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.ar.sceneform.ArSceneView;
 
@@ -32,9 +33,8 @@ import java.util.List;
 
 public class TakePhoto {
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void takePhoto(ArSceneView arFragmentSceneView, Context context) {
-        final String filename =  generateFilename();
-        // ArSceneView view = fragment.getArSceneView();
+    public void takePhoto(ArSceneView arFragmentSceneView, Context context, CoordinatorLayout main_content) {
+        final String filename = generateFilename();
 
         // Create a bitmap the size of the scene view.
         final Bitmap bitmap = Bitmap.createBitmap(arFragmentSceneView.getWidth(), arFragmentSceneView.getHeight(),
@@ -54,7 +54,7 @@ public class TakePhoto {
                     toast.show();
                     return;
                 }
-//                Snackbar snackbar = Snackbar.make(context.findViewById(android.R.id.content),
+//                Snackbar snackbar = Snackbar.make(arFragmentSceneView,
 //                        "Photo saved", Snackbar.LENGTH_LONG);
 //                snackbar.setAction("Open in Photos", v -> {
 //                    File photoFile = new File(filename);
@@ -84,15 +84,6 @@ public class TakePhoto {
             out.getParentFile().mkdirs();
         }
 
-        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        Log.d("TAG", "saveBitmapToDisk: " + bitmap.toString());
-        File directory = new File(root + "/AREngine");
-        directory.mkdirs();
-
-        if (!directory.exists() && !directory.isDirectory()) {
-            directory.mkdirs();
-        }
-
         try (FileOutputStream outputStream = new FileOutputStream(filename);
              ByteArrayOutputStream outputData = new ByteArrayOutputStream()) {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputData);
@@ -103,15 +94,20 @@ public class TakePhoto {
             Log.d("TAG", "saveBitmapToDisk: " + ex.getMessage());
             throw new IOException("Failed to save bitmap to disk", ex);
         }
-
-        // Tell the media scanner about the new file so that it is
-        // immediately available to the user.
         MediaScannerConnection.scanFile(context, new String[]{filename}, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
+                        File photoFile = new File(filename);
+
+                        Uri photoURI = FileProvider.getUriForFile(context,
+                                context.getPackageName() + ".ar.codelab.name.provider",
+                                photoFile);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, photoURI);
+                        intent.setDataAndType(photoURI, "image/*");
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        context.startActivity(intent);
                     }
                 });
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
