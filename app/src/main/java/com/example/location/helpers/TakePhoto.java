@@ -98,7 +98,6 @@ public class TakePhoto {
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
                         File photoFile = new File(filename);
-
                         Uri photoURI = FileProvider.getUriForFile(context,
                                 context.getPackageName() + ".ar.codelab.name.provider",
                                 photoFile);

@@ -72,7 +72,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
                 android:src="@drawable/videocam"
-                app:backgroundTint="#FF0000"
+                app:backgroundTint="#00FF0000"
                 app:borderWidth="0dp"
                 app:elevation="0dp"
                 app:fabSize="normal"
