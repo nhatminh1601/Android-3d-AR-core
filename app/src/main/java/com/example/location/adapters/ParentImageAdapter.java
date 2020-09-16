@@ -3,6 +3,7 @@ package com.example.location.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,13 +55,30 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView parentItemTitle;
+        private ImageButton favoriteButton;
         private RecyclerView childRecyclerView;
+        boolean isActive = false;
 
         MyViewHolder(final View itemView) {
             super(itemView);
 
             parentItemTitle = itemView.findViewById(R.id.parent_item_title);
+            favoriteButton = itemView.findViewById(R.id.favoriteButton);
             childRecyclerView = itemView.findViewById(R.id.child_recyclerview);
+
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isActive){
+                        favoriteButton.setImageResource(R.drawable.ic__favorite_border);
+                        isActive = false;
+                    }
+                    else {
+                        favoriteButton.setImageResource(R.drawable.ic__favorite);
+                        isActive = true;
+                    }
+                }
+            });
         }
     }
 }
