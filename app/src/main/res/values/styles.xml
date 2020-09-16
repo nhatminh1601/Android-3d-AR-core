@@ -6,6 +6,18 @@
         <item name="colorPrimaryDark">#3865EC</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppTheme2" parent="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#387BEC</item>
+        <item name="colorPrimaryDark">#003865EC</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme3" parent="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#387BEC</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="FullscreenTheme" parent="@style/Theme.MaterialComponents.NoActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>

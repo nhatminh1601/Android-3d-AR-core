@@ -8,11 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,6 +59,8 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         museum = (Museum) getIntent().getSerializableExtra("museumData");
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_image_group);
         recyclerView = findViewById(R.id.recyclerview);
         actionBar = getSupportActionBar();
@@ -86,7 +92,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Image image = child.getValue(Image.class);
-                    if(image != null){
+                    if (image != null) {
                         images.add(image);
                     }
                 }
@@ -107,7 +113,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         imgPicture = findViewById(R.id.imageView);
 
         textViewDesc.setText(museum.getDescription());
-        if (museum.getImage() != null && !museum.getImage().isEmpty()){
+        if (museum.getImage() != null && !museum.getImage().isEmpty()) {
             Glide.with(this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
         }
     }
@@ -129,9 +135,9 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
 
     @Override
     public void onItemClick(Object o) {
-        Image data= (Image) o;
-        Intent intent= new Intent(this.getApplicationContext(),ImageActivity.class);
-        intent.putExtra("data",data);
+        Image data = (Image) o;
+        Intent intent = new Intent(this.getApplicationContext(), ImageActivity.class);
+        intent.putExtra("data", data);
         startActivity(intent);
 
     }
