@@ -108,10 +108,9 @@ public class MuseumAdapter extends RecyclerView.Adapter<MuseumAdapter.MyViewHold
 
         public void getDataBind(Museum museum, Context context) {
             this.museum = museum;
-            if (museum.getImage() != null && !museum.getImage().isEmpty()){
+            if (museum.getImage() != null && !museum.getImage().isEmpty()) {
                 Glide.with(context).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
-            }
-            else {
+            } else {
                 bg.setImageDrawable(context.getResources().getDrawable(R.drawable.noimage));
             }
 

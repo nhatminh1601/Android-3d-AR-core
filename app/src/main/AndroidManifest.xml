@@ -33,9 +33,9 @@
             android:label="@string/title_activity_image"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".activities.user.ImageGroupActivity" />
+        <activity android:name=".activities.user.ImageGroupActivity" android:theme="@style/AppTheme2" />
         <activity android:name=".activities.user.MuseumActivity" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity" android:theme="@style/AppTheme3"/>
         <activity android:name=".activities.user.LoginActivity" />
         <activity android:name=".activities.user.RegisterActivity" />
         <activity android:name=".activities.admin.AdminActivity" />

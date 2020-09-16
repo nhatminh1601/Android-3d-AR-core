@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.example.location.R;
 import com.example.location.activities.user.fragments.FragmentDiscover;
@@ -33,11 +35,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNav);
         toolbar = getSupportActionBar();
-        toolbar.setTitle("Bảo tàng");
-
+        toolbar.setTitle("");
         handleFragment();
         handleBottomNavigation();
 
@@ -60,17 +63,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btnHome:
-                        toolbar.setTitle("Bảo tàng");
                         ft.beginTransaction().hide(active).show(fragmentHome).commit();
                         active = fragmentHome;
                         return true;
                     case R.id.btnFavorite:
-                        toolbar.setTitle("Yêu thích");
                         ft.beginTransaction().hide(active).show(fragmentFavourite).commit();
                         active = fragmentFavourite;
                         return true;
                     case R.id.btnNavigate:
-                        toolbar.setTitle("Khám phá");
                         ft.beginTransaction().hide(active).show(fragmentDiscover).commit();
                         active = fragmentDiscover;
                         return true;
@@ -80,11 +80,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toobar, menu);
         MenuItem menuItem = menu.findItem(R.id.btnSearch);
         SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setBackgroundColor(R.color.colorPrimary);
         searchView.setQueryHint("Tìm kiếm mọi thứ");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
