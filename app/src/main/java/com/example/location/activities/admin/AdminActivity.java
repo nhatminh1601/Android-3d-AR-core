@@ -36,6 +36,7 @@ import com.example.location.activities.HomeActivity;
 import com.example.location.activities.admin.fragments.FragmentCreature;
 import com.example.location.activities.admin.fragments.FragmentHome;
 import com.example.location.activities.user.LoginActivity;
+import com.example.location.dummy.DataGenerate;
 import com.example.location.dummy.MuseumTypeDummy;
 import com.example.location.helpers.CustomAlertDialog;
 import com.example.location.model.Museum;
@@ -106,6 +107,8 @@ public class AdminActivity extends AppCompatActivity {
         handleBottomNavigation();
         getMuseumTypeList();
         getMuseumList();
+        //DataGenerate dataGenerate = new DataGenerate();
+        //dataGenerate.generate();
     }
 
     @Override

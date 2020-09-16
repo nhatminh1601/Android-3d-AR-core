@@ -37,7 +37,8 @@ public class DataGenerate {
     }
 
     private void generateImages() {
-
+        ImageDummy imageDummy = new ImageDummy(1);
+        images = imageDummy.List();
     }
 
     private void generateMuseums() {
@@ -45,8 +46,11 @@ public class DataGenerate {
     }
 
     private void saveData() {
-        museumsRef.setValue(museums);
-        imagesRef.setValue(images);
-        usersRef.setValue(users);
+        if (!museums.isEmpty())
+            museumsRef.setValue(museums);
+        if (!images.isEmpty())
+            imagesRef.setValue(images);
+        if (!users.isEmpty())
+            usersRef.setValue(users);
     }
 }
