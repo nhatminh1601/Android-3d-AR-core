@@ -37,12 +37,12 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_museum);
         museumType = (MuseumType) getIntent().getSerializableExtra("museumTypeData");
-        recyclerView = findViewById(R.id.recyclerview);
         actionBar = getSupportActionBar();
         actionBar.setTitle(museumType.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_museum);
+        recyclerView = findViewById(R.id.recyclerview);
         getMuseumList();
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
