@@ -141,7 +141,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         ParentImageAdapter parentImageAdapter = new ParentImageAdapter(parentImages, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(parentImageAdapter);
-        dialog.hide();
+        dialog.dismiss();
     }
 
     @Override

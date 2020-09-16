@@ -87,7 +87,7 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
         museumAdapter = new MuseumAdapter(museumList, this);
         recyclerView.setAdapter(museumAdapter);
 
-        dialog.hide();
+        dialog.dismiss();
     }
 
     @Override
