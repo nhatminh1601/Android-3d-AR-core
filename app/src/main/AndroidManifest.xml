@@ -34,21 +34,44 @@
             android:label="@string/title_activity_image"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".activities.user.ImageGroupActivity" android:theme="@style/AppTheme2" />
-        <activity android:name=".activities.user.MuseumActivity" />
-        <activity android:name=".activities.MainActivity" android:theme="@style/AppTheme3"/>
-        <activity android:name=".activities.user.LoginActivity" />
-        <activity android:name=".activities.user.RegisterActivity" />
-        <activity android:name=".activities.admin.AdminActivity" />
-        <activity android:name=".activities.admin.WelcomeActivity" />
-        <activity android:name=".activities.admin.ImageGroupActivity" />
-        <activity android:name=".activities.admin.ImageActivity" />
-        <activity android:name=".activities.HomeActivity">
+        <activity
+            android:name=".activities.user.ImageGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".activities.user.MuseumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".activities.user.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.user.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.AdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.ImageGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.ar.codelab.name.provider"
@@ -56,7 +79,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

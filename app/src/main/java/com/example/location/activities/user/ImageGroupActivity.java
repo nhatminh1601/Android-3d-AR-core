@@ -134,7 +134,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
             getWindowManager().getDefaultDisplay().getMetrics(dimension);
             float density  = getResources().getDisplayMetrics().density;
             float width = dimension.widthPixels/density+3;
-            Glide.with(this).load(museum.getImage()).override((int) width,250).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
+            Glide.with(this).load(museum.getImage()).override((int) width,255).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
         }
     }
 
