@@ -39,7 +39,6 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
 
         ParentImage parentImage = parentImages.get(position);
         parentViewHolder.parentItemTitle.setText(parentImage.getName());
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         ImageAdapter childItemAdapter = new ImageAdapter((ArrayList) parentImage.getImages(), onItemClickListener, 0);
         parentViewHolder.childRecyclerView.setLayoutManager(layoutManager);

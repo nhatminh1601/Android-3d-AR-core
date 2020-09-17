@@ -30,7 +30,7 @@ public class ARManager {
         //Log.d("TAG", "create3DModel: "+type);
         ModelRenderable
                 .builder()
-                .setSource(context, RenderableSource.builder().setSource(context, Uri.parse("String name"),
+                .setSource(context, RenderableSource.builder().setSource(context, Uri.parse(name),
                         RenderableSource.SourceType.GLTF2).setScale(1.0f)
                         .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
@@ -56,8 +56,8 @@ public class ARManager {
                     addModelToScene(anchor, modelRenderable);
                 })
                 .exceptionally(throwable -> {
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                    builder.setMessage(throwable.getMessage()).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage(throwable.getMessage()).show();
                     return null;
                 });
 

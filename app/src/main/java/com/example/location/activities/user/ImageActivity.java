@@ -63,7 +63,7 @@ public class ImageActivity extends AppCompatActivity {
     DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
     private static final String TAG = "TAG";
     private static final double MIN_OPENGL_VERSION = 3.0;
-    private static final int CAMERA_PERMISSION_CODE = 100 ;
+    private static final int CAMERA_PERMISSION_CODE = 100;
     public ArFragment arFragment;
     ARManager arManager;
     BottomAppBar bottomAppBar;
@@ -99,7 +99,12 @@ public class ImageActivity extends AppCompatActivity {
         arFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
             Anchor anchor = hitResult.createAnchor();
             arManager = new ARManager(arFragment, this);
-            arManager.create3DModelSFB(anchor, imageAnchor);
+            if (imageAnchor.indexOf(".sfb") == -1) {
+                arManager.create3DModel(anchor, imageAnchor);
+            } else {
+                arManager.create3DModelSFB(anchor, imageAnchor);
+            }
+
         });
         _context = this;
 
@@ -114,7 +119,7 @@ public class ImageActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Image img = child.getValue(Image.class);
-                    if(img != null && img.getGroup().equals(image.getGroup())){
+                    if (img != null && img.getGroup().equals(image.getGroup())) {
                         images.add(img);
                     }
                 }
@@ -134,6 +139,7 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void setImageAnchor(Image image) {
+        Log.d(TAG, "setImageAnchor: "+image);
         if (image.getUrl() != null && !image.getUrl().isEmpty()) {
             imageAnchor = image.getUrl();
         }
@@ -141,7 +147,7 @@ public class ImageActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void Recording() {
-        videoRecorder= new VideoRecorder();
+        videoRecorder = new VideoRecorder();
         int orientation = getResources().getConfiguration().orientation;
         videoRecorder.setVideoQuality(CamcorderProfile.QUALITY_2160P, orientation);
         videoRecorder.setSceneView(arFragment.getArSceneView());
@@ -149,6 +155,7 @@ public class ImageActivity extends AppCompatActivity {
         fabVideo.setEnabled(true);
         //fabVideo.setImageResource(R.drawable.camera);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void toggleRecording(View unusedView) {
         boolean recording = videoRecorder.onToggleRecord();
@@ -174,12 +181,13 @@ public class ImageActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     private void takePhoto() {
         fabCamera.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                takePhoto.takePhoto(arFragment.getArSceneView(), _context,main_content);
+                takePhoto.takePhoto(arFragment.getArSceneView(), _context, main_content);
             }
         });
     }
@@ -195,7 +203,7 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void setId() {
-        main_content= findViewById(R.id.main_content);
+        main_content = findViewById(R.id.main_content);
         fabCamera = findViewById(R.id.btnCamera);
         fabVideo = findViewById(R.id.btnVideo);
         fabSearch = findViewById(R.id.btnSearch);

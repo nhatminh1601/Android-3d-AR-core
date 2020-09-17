@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.location.R;
 import com.example.location.activities.user.LoginActivity;
+import com.example.location.dummy.DataGenerate;
 
 public class HomeActivity extends AppCompatActivity {
     Button btnStart;
@@ -30,6 +31,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         btnStart = findViewById(R.id.btnStart);
         btnLogin = findViewById(R.id.btnLogin);
+//        DataGenerate dataGenerate= new DataGenerate();
+//        dataGenerate.generate();
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
