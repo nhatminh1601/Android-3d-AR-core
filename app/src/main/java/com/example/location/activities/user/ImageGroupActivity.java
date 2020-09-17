@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,7 +57,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
 
     ImageView imgPicture;
     TextView textViewDesc;
-
+    int width;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,10 +122,13 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     private void setView() {
         textViewDesc = findViewById(R.id.textViewDesc);
         imgPicture = findViewById(R.id.imageView);
-
         textViewDesc.setText(museum.getDescription());
         if (museum.getImage() != null && !museum.getImage().isEmpty()) {
-            Glide.with(this).load(museum.getImage()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
+            DisplayMetrics dimension = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dimension);
+            float density  = getResources().getDisplayMetrics().density;
+            float width = dimension.widthPixels/density+3;
+            Glide.with(this).load(museum.getImage()).override((int) width,250).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(imgPicture);
         }
     }
 
