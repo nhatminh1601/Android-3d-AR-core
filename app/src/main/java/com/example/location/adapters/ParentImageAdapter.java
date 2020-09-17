@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
+import com.example.location.activities.user.ImageGroupActivity;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.ParentImage;
 
@@ -21,10 +22,14 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private OnItemClickListener onItemClickListener;
     ArrayList<ParentImage> parentImages = new ArrayList<>();
+    ImageGroupActivity activity;
+    ArrayList<String> favorites = new ArrayList<>();
 
-    public ParentImageAdapter(ArrayList<ParentImage> parentImages, OnItemClickListener onItemClickListener) {
+    public ParentImageAdapter(ArrayList<ParentImage> parentImages, OnItemClickListener onItemClickListener, ImageGroupActivity activity) {
         this.onItemClickListener = onItemClickListener;
         this.parentImages.addAll(parentImages);
+        this.activity = activity;
+        this.favorites = activity.getFavorites();
     }
 
     @NonNull
@@ -39,6 +44,15 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
 
         ParentImage parentImage = parentImages.get(position);
         parentViewHolder.parentItemTitle.setText(parentImage.getName());
+        parentViewHolder.groupId = parentImage.getId();
+        for (int i = 0; i < favorites.size(); i++) {
+            if (favorites.get(i).equals(parentImage.getId().toString())) {
+                parentViewHolder.favoriteButton.setImageResource(R.drawable.ic__favorite);
+                parentViewHolder.isActive = true;
+                break;
+            }
+        }
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(parentViewHolder.childRecyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false);
         ImageAdapter childItemAdapter = new ImageAdapter((ArrayList) parentImage.getImages(), onItemClickListener, 0);
         parentViewHolder.childRecyclerView.setLayoutManager(layoutManager);
@@ -57,6 +71,8 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
         private ImageButton favoriteButton;
         private RecyclerView childRecyclerView;
         boolean isActive = false;
+        Integer groupId;
+        ArrayList<Integer> favorites = new ArrayList<>();
 
         MyViewHolder(final View itemView) {
             super(itemView);
@@ -69,13 +85,21 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
                 @Override
                 public void onClick(View view) {
                     if (isActive){
+                        for (int i = 0; i < favorites.size(); i++) {
+                            if (favorites.get(i).equals(groupId)) {
+                                favorites.remove(i);
+                                break;
+                            }
+                        }
                         favoriteButton.setImageResource(R.drawable.ic__favorite_border);
                         isActive = false;
                     }
                     else {
+                        favorites.add(groupId);
                         favoriteButton.setImageResource(R.drawable.ic__favorite);
                         isActive = true;
                     }
+                    activity.onFavoriteClick(favorites);
                 }
             });
         }

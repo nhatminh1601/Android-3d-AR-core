@@ -25,7 +25,7 @@
             android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/whiteTextColor"
+            android:background="@drawable/button_radius"
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic__favorite_border" />
