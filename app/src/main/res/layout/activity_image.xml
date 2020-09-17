@@ -13,9 +13,9 @@
         android:id="@+id/btnSearch"
         android:layout_height="wrap_content"
         android:src="@drawable/search"
-        app:backgroundTint="#000"
+        app:backgroundTint="#fff"
         app:layout_anchor="@id/bottomAppBar"
-        app:tint="#fff" />
+        app:tint="@color/primaryTextColor" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/primaryTextColor"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="5dp"

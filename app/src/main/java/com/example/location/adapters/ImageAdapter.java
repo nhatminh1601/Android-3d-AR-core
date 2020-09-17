@@ -122,11 +122,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
             this.image = image;
             title.setText(image.getName());
             description.setText(image.getDesc());
-            if (image.getUrl() != null && !image.getUrl().isEmpty()){
-                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
-            }
-            else if (image.getImage() != null) {
+
+            if (image.getImage() != null) {
                 bg.setImageDrawable(context.getResources().getDrawable(image.getImage()));
+            }
+            else if (image.getUrl() != null && !image.getUrl().isEmpty()){
+                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
             }
         }
     }

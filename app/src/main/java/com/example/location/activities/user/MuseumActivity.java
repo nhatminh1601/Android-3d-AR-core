@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,22 +27,28 @@ import java.util.List;
 public class MuseumActivity extends AppCompatActivity implements OnItemClickListener {
     DatabaseReference museumsRef = FirebaseDatabase.getInstance().getReference("museums");
     MuseumType museumType;
-    List<Museum> museums = new ArrayList<>();;
+    List<Museum> museums = new ArrayList<>();
     RecyclerView recyclerView;
     MuseumAdapter museumAdapter;
     RecyclerView.LayoutManager layoutManager;
     ActionBar actionBar;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_museum);
         museumType = (MuseumType) getIntent().getSerializableExtra("museumTypeData");
-        recyclerView = findViewById(R.id.recyclerview);
         actionBar = getSupportActionBar();
         actionBar.setTitle(museumType.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_museum);
+        recyclerView = findViewById(R.id.recyclerview);
         getMuseumList();
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
     }
 
     private void getMuseumList() {
@@ -80,7 +87,7 @@ public class MuseumActivity extends AppCompatActivity implements OnItemClickList
         museumAdapter = new MuseumAdapter(museumList, this);
         recyclerView.setAdapter(museumAdapter);
 
-
+        dialog.dismiss();
     }
 
     @Override

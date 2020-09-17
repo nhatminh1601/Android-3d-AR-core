@@ -9,11 +9,13 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="5dp"
+        android:background="@color/whiteTextColor"
         app:cardCornerRadius="35dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/whiteTextColor"
             android:orientation="vertical">
 
             <ImageView
@@ -21,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
+                android:background="@color/whiteTextColor"
                 android:src="@drawable/noimage" />
 
             <TextView

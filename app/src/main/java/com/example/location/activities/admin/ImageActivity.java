@@ -1,6 +1,7 @@
 package com.example.location.activities.admin;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +13,17 @@ import com.example.location.adapters.ImageAdapter;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Image;
 import com.example.location.model.ImageGroup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ImageActivity extends AppCompatActivity implements OnItemClickListener {
-    ArrayList<Image> images;
+    DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
+    ArrayList<Image> images = new ArrayList<>();
     RecyclerView recyclerView;
     ImageAdapter imageAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -33,25 +40,32 @@ public class ImageActivity extends AppCompatActivity implements OnItemClickListe
         actionBar = getSupportActionBar();
         actionBar.setTitle("Tác phẩm " + imageGroup.getName());
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setAdapter();
+        getImageList();
+    }
+
+    private void getImageList() {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Image image = child.getValue(Image.class);
+                    if(image != null && image.getGroup().equals(imageGroup.getId())){
+                        images.add(image);
+                    }
+                }
+                setAdapter();
+                Log.d("TAG", "Value is: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        };
+        imageRef.addValueEventListener(eventListener);
     }
 
     private void setAdapter() {
-        images = new ArrayList<>();
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "test", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-
         layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
         imageAdapter = new ImageAdapter(images, this, 1);

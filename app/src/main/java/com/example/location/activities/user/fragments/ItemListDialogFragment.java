@@ -53,6 +53,7 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
         try {
             context = getContext();
             imageActivity = (ImageActivity) getActivity();
+            images = imageActivity.getImages();
         } catch (IllegalAccessError e) {
             throw new IllegalStateException("ImageAction must implement callbacks");
         }
@@ -68,20 +69,6 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        images = new ArrayList<>();
-        images.add(new Image(1, "Hình 1", "aaa.gltf", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/carnotaurus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/ceratosaurus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/cryolophosaurus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/diabloceratops.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/diplodocus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/fossilcoelophysis.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/fossilcoelophysissecond.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/fossilstegosaurus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/gorgosaurus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/skeletondiplodocus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/skeletongomphothereskull.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
-        images.add(new Image(1, "Hình 1", "dinosaur/skeletonteratophoneus.sfb", "hình ảnh phong cảnh", 1, R.drawable.khampha, 1));
         final RecyclerView recyclerView = (RecyclerView) view;
         layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -89,7 +76,6 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
         recyclerView.setAdapter(imageAdapter);
 
     }
-
 
     @Override
     public void onItemClick(Object o) {

@@ -1,6 +1,7 @@
 package com.example.location.activities.user.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,20 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.location.R;
 import com.example.location.activities.MainActivity;
+import com.example.location.activities.user.ImageGroupActivity;
 import com.example.location.adapters.DiscoverAdapter;
 import com.example.location.interfaces.OnItemClickListener;
 import com.example.location.model.Museum;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class FragmentDiscover extends Fragment implements OnItemClickListener {
+    DatabaseReference museumsRef = FirebaseDatabase.getInstance().getReference("museums");
     Context context;
     MainActivity main;
     RecyclerView recyclerView;
     DiscoverAdapter discoverAdapter;
     View view;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<Museum> museums;
+    ArrayList<Museum> museums = new ArrayList<>();
 
     public static FragmentDiscover newInstance() {
         FragmentDiscover fragmentDiscover = new FragmentDiscover();
@@ -50,24 +58,35 @@ public class FragmentDiscover extends Fragment implements OnItemClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_discover, null);
-        SetAdapter();
+        getMuseumList();
         return view;
     }
 
+    private void getMuseumList() {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Museum museum = child.getValue(Museum.class);
+                    if(museum != null){
+                        museums.add(museum);
+                    }
+                }
+                SetAdapter();
+                Log.d("TAG", "Value is: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        };
+        museumsRef.addValueEventListener(eventListener);
+    }
+
     private void SetAdapter() {
-        museums = new ArrayList<>();
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
-        museums.add(new Museum(1, "Test", "", "this is test"));
         recyclerView = view.findViewById(R.id.recyclerViewDiscover);
-        layoutManager=new GridLayoutManager(view.getContext(),3);
+        layoutManager=new GridLayoutManager(view.getContext(),2);
         recyclerView.setLayoutManager(layoutManager);
         discoverAdapter= new DiscoverAdapter(museums,this);
         recyclerView.setAdapter(discoverAdapter);
@@ -75,6 +94,10 @@ public class FragmentDiscover extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(Object o) {
+        Museum data = (Museum) o;
+        Intent intent = new Intent(view.getContext(), ImageGroupActivity.class);
+        intent.putExtra("museumData", data);
+        startActivity(intent);
         Log.d("TAG", "aaaa: "+o.toString());
     }
 }

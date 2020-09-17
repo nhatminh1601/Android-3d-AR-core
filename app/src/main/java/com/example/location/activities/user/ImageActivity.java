@@ -50,10 +50,17 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class ImageActivity extends AppCompatActivity {
+    DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
     private static final String TAG = "TAG";
     private static final double MIN_OPENGL_VERSION = 3.0;
     private static final int CAMERA_PERMISSION_CODE = 100 ;
@@ -68,6 +75,8 @@ public class ImageActivity extends AppCompatActivity {
     String imageAnchor = "dinosaur/allosaurus.sfb";
     CoordinatorLayout main_content;
     VideoRecorder videoRecorder;
+    Image image;
+    ArrayList<Image> images = new ArrayList<>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -76,6 +85,9 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_image);
+        image = (Image) getIntent().getSerializableExtra("data");
+        setImageAnchor(image);
+        getImageList();
         setId();
         _animationManager = new AnimationManager(this);
         if (!checkIsSupportedDeviceOrFinish(this)) {
@@ -94,6 +106,37 @@ public class ImageActivity extends AppCompatActivity {
         setListFragmentImage();
         takePhoto();
         Recording();
+    }
+
+    private void getImageList() {
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Image img = child.getValue(Image.class);
+                    if(img != null && img.getGroup().equals(image.getGroup())){
+                        images.add(img);
+                    }
+                }
+                Log.d("TAG", "Value is: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        };
+        imageRef.addValueEventListener(eventListener);
+    }
+
+    public ArrayList<Image> getImages() {
+        return images;
+    }
+
+    private void setImageAnchor(Image image) {
+        if (image.getUrl() != null && !image.getUrl().isEmpty()) {
+            imageAnchor = image.getUrl();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

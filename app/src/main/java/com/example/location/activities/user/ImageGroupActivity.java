@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -51,6 +52,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     ArrayList<ParentImage> parentImages = new ArrayList<>();
     RecyclerView recyclerView;
     ActionBar actionBar;
+    ProgressDialog dialog;
 
     ImageView imgPicture;
     TextView textViewDesc;
@@ -69,9 +71,17 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         setImageGroup();
         getImageList();
         setView();
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
     }
 
     private void setImageGroup() {
+        if (museum.getImages() == null) {
+            return;
+        }
         ImageGroupDummy imageGroupDummy = new ImageGroupDummy();
         List<ImageGroup> groupList = imageGroupDummy.list();
         for (int i = 0; i < groupList.size(); i++) {
@@ -131,6 +141,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         ParentImageAdapter parentImageAdapter = new ParentImageAdapter(parentImages, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(parentImageAdapter);
+        dialog.dismiss();
     }
 
     @Override
