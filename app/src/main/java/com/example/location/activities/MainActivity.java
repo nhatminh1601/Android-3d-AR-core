@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,7 +24,12 @@ import com.example.location.activities.user.fragments.FragmentFavourite;
 import com.example.location.activities.user.fragments.FragmentHome;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     BottomNavigationView bottomNavigationView;
     FragmentManager ft;
     FragmentDiscover fragmentDiscover;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("App_settings", MODE_PRIVATE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.activity_main);
@@ -44,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         handleFragment();
         handleBottomNavigation();
 
+    }
+
+    public ArrayList<String> getFavorites() {
+        ArrayList<String> favorites = new ArrayList<>();
+        Set<String> set = sharedPreferences.getStringSet("FAVORITES", new HashSet<>());
+        favorites.addAll(set);
+        return favorites;
     }
 
     private void handleFragment() {
@@ -68,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.btnFavorite:
                         ft.beginTransaction().hide(active).show(fragmentFavourite).commit();
+                        fragmentFavourite.updateAdapter(getFavorites());
                         active = fragmentFavourite;
                         return true;
                     case R.id.btnNavigate:

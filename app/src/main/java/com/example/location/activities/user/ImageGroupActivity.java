@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -42,10 +43,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ImageGroupActivity extends AppCompatActivity implements OnItemClickListener {
     DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
+    SharedPreferences sharedPreferences;
+
     Museum museum;
     List<ImageGroup> imageGroups = new ArrayList<>();
     ArrayList<Image> images = new ArrayList<>();
@@ -60,6 +65,7 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences("App_settings", MODE_PRIVATE);
         museum = (Museum) getIntent().getSerializableExtra("museumData");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -138,10 +144,33 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        ParentImageAdapter parentImageAdapter = new ParentImageAdapter(parentImages, this);
+        ParentImageAdapter parentImageAdapter = new ParentImageAdapter(parentImages, this, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(parentImageAdapter);
         dialog.dismiss();
+    }
+
+    public void saveFavorites(ArrayList<String> favorites) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set<String> set = new HashSet<>();
+        set.addAll(favorites);
+        editor.putStringSet("FAVORITES", set);
+        editor.apply();
+    }
+
+    public ArrayList<String> getFavorites() {
+        ArrayList<String> favorites = new ArrayList<>();
+        Set<String> set = sharedPreferences.getStringSet("FAVORITES", new HashSet<>());
+        favorites.addAll(set);
+        return favorites;
+    }
+
+    public void onFavoriteClick(ArrayList<Integer> arrayList) {
+        ArrayList<String> favorites = new ArrayList<>();
+        for (int i = 0; i < arrayList.size(); i++) {
+            favorites.add(arrayList.get(i).toString());
+        }
+        saveFavorites(favorites);
     }
 
     @Override
