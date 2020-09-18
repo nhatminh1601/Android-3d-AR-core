@@ -22,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 public class ImageActivity extends AppCompatActivity {
     DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference("images");
@@ -412,8 +415,15 @@ public class ImageActivity extends AppCompatActivity {
 
     private void showInfo() {
         if (choosingImage != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(_context);
-            builder.setMessage(choosingImage.getDesc()).show();
+            new SimpleTooltip.Builder(this)
+                    .anchorView(fabInfo)
+                    .text((choosingImage.getLongDesc() != "" && choosingImage.getLongDesc() != null) ? choosingImage.getLongDesc() : choosingImage.getDesc())
+                    .gravity(Gravity.TOP)
+                    .animated(true)
+                    .build()
+                    .show();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+//            builder.setMessage(choosingImage.getDesc()).show();
         }
     }
 
