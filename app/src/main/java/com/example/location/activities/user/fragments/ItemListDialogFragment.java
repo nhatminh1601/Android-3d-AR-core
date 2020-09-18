@@ -12,17 +12,22 @@ import com.example.location.R;
 import com.example.location.activities.user.ImageActivity;
 import com.example.location.adapters.ImageAdapter;
 import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.interfaces.OnItemLongClick;
 import com.example.location.model.Image;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>
@@ -31,12 +36,13 @@ import java.util.ArrayList;
  *     ItemListDialogFragment.newInstance(30).show(getSupportFragmentManager(), "dialog");
  * </pre>
  */
-public class ItemListDialogFragment extends BottomSheetDialogFragment implements OnItemClickListener {
+public class ItemListDialogFragment extends BottomSheetDialogFragment implements OnItemClickListener, OnItemLongClick {
     RecyclerView.LayoutManager layoutManager;
     ImageAdapter imageAdapter;
     ArrayList<Image> images;
     ImageActivity imageActivity;
     Context context;
+    RecyclerView recyclerView;
 
 
     // TODO: Customize parameters
@@ -69,10 +75,10 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final RecyclerView recyclerView = (RecyclerView) view;
+        recyclerView = (RecyclerView) view;
         layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        imageAdapter = new ImageAdapter(images, this, 2);
+        imageAdapter = new ImageAdapter(images, this, this, 2, 1);
         recyclerView.setAdapter(imageAdapter);
 
     }
@@ -82,5 +88,18 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
         getDialog().dismiss();
         Image data = (Image) o;
         imageActivity.setImage(data);
+    }
+
+    @Override
+    public void onItemLongClick(Object o, View view) {
+        Image data = (Image) o;
+        Log.d("TAG", "onItemLongClick: " + data.toString());
+        new SimpleTooltip.Builder(context)
+                .anchorView(view)
+                .text(data.getDesc())
+                .gravity(Gravity.TOP)
+                .animated(true)
+                .build()
+                .show();
     }
 }

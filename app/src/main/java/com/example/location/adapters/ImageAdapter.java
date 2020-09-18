@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.location.R;
 import com.example.location.common.VNCharacterUtils;
 import com.example.location.interfaces.OnItemClickListener;
+import com.example.location.interfaces.OnItemLongClick;
 import com.example.location.model.Image;
 
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     ArrayList<Image> arr;
     ArrayList<Image> imageAll;
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClick onItemLongClick;
     int type = 0;
+    int isOnLongClick = 0;
 
     public ImageAdapter(ArrayList<Image> arr, OnItemClickListener onItemClickListener, int type) {
         this.arr = arr;
@@ -36,6 +39,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         this.type = type;
         imageAll = new ArrayList<>();
         imageAll.addAll(arr);
+    }
+
+    public ImageAdapter(ArrayList<Image> arr, OnItemClickListener onItemClickListener, OnItemLongClick onItemLongClick, int type, int isOnLongClick) {
+        this.arr = arr;
+        this.onItemClickListener = onItemClickListener;
+        this.onItemLongClick = onItemLongClick;
+        this.type = type;
+        this.isOnLongClick = isOnLongClick;
     }
 
     @NonNull
@@ -115,6 +126,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
                     onItemClickListener.onItemClick(image);
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (isOnLongClick == 1) {
+                        onItemLongClick.onItemLongClick(image,itemView);
+                    }
+                    return true;
+                }
+            });
         }
 
         public void getDataBind(Image image, Context context) {
@@ -125,8 +146,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
 
             if (image.getImage() != null) {
                 bg.setImageDrawable(context.getResources().getDrawable(image.getImage()));
-            }
-            else if (image.getUrl() != null && !image.getUrl().isEmpty()){
+            } else if (image.getUrl() != null && !image.getUrl().isEmpty()) {
                 Glide.with(context).load(image.getUrl()).placeholder(R.drawable.noimage).error(R.drawable.noimage).into(bg);
             }
         }
