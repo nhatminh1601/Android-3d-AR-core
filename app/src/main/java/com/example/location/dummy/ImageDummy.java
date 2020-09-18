@@ -35,16 +35,16 @@ public class ImageDummy {
             // thực vật
             imageList.add(new Image(19, "tree", "tree/tree/Tree02.gltf", "tree", 4, R.drawable.cay, 1));
             // xương
-            imageList.add(new Image(1, "Bone", "bone/Bone/Bone01.gltf", "Bone", 5, R.drawable.xuong, 1));
-            imageList.add(new Image(2, "Dinosaur", "bone/Dinosaur/DinosaurSkull.gltf", "Xương khủng long", 5, R.drawable.xuong, 1));
-            imageList.add(new Image(3, "SprineBase", "bone/SprineBase/SprineBase.gltf", "SprineBase", 5, R.drawable.xuong, 1));
-            imageList.add(new Image(3, "Trilobite", "bone/Trilobite/TrilobiteA.gltf", "TrilobiteA", 5, R.drawable.xuong, 1));
-            imageList.add(new Image(3, "Trilobited", "bone/Trilobited/TrilobitedB.gltf", "TrilobitedB", 5, R.drawable.xuong, 1));
+            imageList.add(new Image(20, "Bone", "bone/Bone/Bone01.gltf", "Bone", 5, R.drawable.xuong, 1));
+            imageList.add(new Image(21, "Dinosaur", "bone/Dinosaur/DinosaurSkull.gltf", "Xương khủng long", 5, R.drawable.xuong, 1));
+            imageList.add(new Image(22, "SprineBase", "bone/SprineBase/SprineBase.gltf", "SprineBase", 5, R.drawable.xuong, 1));
+            imageList.add(new Image(23, "Trilobite", "bone/Trilobite/TrilobiteA.gltf", "TrilobiteA", 5, R.drawable.xuong, 1));
+            imageList.add(new Image(24, "Trilobited", "bone/Trilobited/TrilobitedB.gltf", "TrilobitedB", 5, R.drawable.xuong, 1));
             // tranh
-            imageList.add(new Image(20, "Van gogh", "tranh/vangoghmuseum/vangoghmuseum.gltf", "Tranh của Van gogh", 6, R.drawable.h1, 1));
-            imageList.add(new Image(21, "Van gogh", "tranh/b2/b2.gltf", "Tranh của Van gogh", 6, R.drawable.h4, 1));
-            imageList.add(new Image(22, "Van gogh", "tranh/b3/b3.gltf", "Tranh của Van gogh", 6, R.drawable.h3, 1));
-            imageList.add(new Image(23, "Van gogh", "tranh/b4/b4.gltf", "Tranh của Van gogh", 6, R.drawable.h2, 1));
+            imageList.add(new Image(25, "Van gogh", "tranh/vangoghmuseum/vangoghmuseum.gltf", "Tranh của Van gogh", 6, R.drawable.h1, 1));
+            imageList.add(new Image(26, "Van gogh", "tranh/b2/b2.gltf", "Tranh của Van gogh", 6, R.drawable.h4, 1));
+            imageList.add(new Image(27, "Van gogh", "tranh/b3/b3.gltf", "Tranh của Van gogh", 6, R.drawable.h3, 1));
+            imageList.add(new Image(28, "Van gogh", "tranh/b4/b4.gltf", "Tranh của Van gogh", 6, R.drawable.h2, 1));
         }
       
 
