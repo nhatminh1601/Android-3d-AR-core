@@ -67,7 +67,7 @@ public class ImageActivity extends AppCompatActivity {
     public ArFragment arFragment;
     ARManager arManager;
     BottomAppBar bottomAppBar;
-    FloatingActionButton fabCamera, fabVideo, fabSearch, fabExitFull;
+    FloatingActionButton fabCamera, fabVideo, fabSearch, fabExitFull, fabClose, fabInfo, fabRemove;
     private boolean isFullScreenMode = false;
     private AnimationManager _animationManager;
     TakePhoto takePhoto;
@@ -77,6 +77,9 @@ public class ImageActivity extends AppCompatActivity {
     VideoRecorder videoRecorder;
     Image image;
     ArrayList<Image> images = new ArrayList<>();
+
+    Image choosingImage;
+    AnchorNode choosingAnchorNode;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -208,6 +211,9 @@ public class ImageActivity extends AppCompatActivity {
         fabVideo = findViewById(R.id.btnVideo);
         fabSearch = findViewById(R.id.btnSearch);
         fabExitFull = findViewById(R.id.BtnExitFull);
+        fabClose = findViewById(R.id.btnClose);
+        fabInfo = findViewById(R.id.btnInfo);
+        fabRemove = findViewById(R.id.btnRemove);
         takePhoto = new TakePhoto();
         fabExitFull.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +228,29 @@ public class ImageActivity extends AppCompatActivity {
                 fabSearch.startAnimation(showAnim);
                 fabVideo.startAnimation(showAnim);
                 isFullScreenMode = false;
+            }
+        });
+        fabClose.setVisibility(View.INVISIBLE);
+        fabRemove.setVisibility(View.INVISIBLE);
+        fabInfo.setVisibility(View.INVISIBLE);
+        fabClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabClose.setVisibility(View.INVISIBLE);
+                fabRemove.setVisibility(View.INVISIBLE);
+                fabInfo.setVisibility(View.INVISIBLE);
+            }
+        });
+        fabInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInfo();
+            }
+        });
+        fabRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAnchorNode();
             }
         });
     }
@@ -362,5 +391,37 @@ public class ImageActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    public void showOptionsMenu(AnchorNode anchorNode, String url) {
+        choosingAnchorNode = anchorNode;
+        choosingImage = getImageByUrl(url);
+        fabClose.setVisibility(View.VISIBLE);
+        fabInfo.setVisibility(View.VISIBLE);
+        fabRemove.setVisibility(View.VISIBLE);
+    }
+
+    private Image getImageByUrl(String url) {
+        for (int i = 0; i < images.size(); i++) {
+            if (images.get(i).getUrl().equals(url)) {
+                return images.get(i);
+            }
+        }
+        return null;
+    }
+
+    private void showInfo() {
+        if (choosingImage != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(_context);
+            builder.setMessage(choosingImage.getDesc()).show();
+        }
+    }
+
+    private void removeAnchorNode() {
+        if (choosingAnchorNode != null) {
+            arFragment.getArSceneView().getScene().removeChild(choosingAnchorNode);
+            choosingAnchorNode.getAnchor().detach();
+            choosingAnchorNode.setParent(null);
+        }
     }
 }

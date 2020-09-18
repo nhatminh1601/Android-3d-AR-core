@@ -7,6 +7,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.location.activities.user.ImageActivity;
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.assets.RenderableSource;
@@ -19,10 +20,12 @@ import com.google.ar.sceneform.ux.TransformableNode;
 public class ARManager {
     public ArFragment arFragment;
     Context context;
+    ImageActivity activity;
 
     public ARManager(ArFragment arFragment, Context context) {
         this.arFragment = arFragment;
         this.context = context;
+        this.activity = (ImageActivity) context;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -35,7 +38,7 @@ public class ARManager {
                         .setRecenterMode(RenderableSource.RecenterMode.CENTER).build())
                 .build()
                 .thenAccept(modelRenderable -> {
-                    addModelToScene(anchor, modelRenderable);
+                    addModelToScene(anchor, modelRenderable, name);
                 })
                 .exceptionally(throwable -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -53,7 +56,7 @@ public class ARManager {
                 .setSource(context, Uri.parse(name))
                 .build()
                 .thenAccept(modelRenderable -> {
-                    addModelToScene(anchor, modelRenderable);
+                    addModelToScene(anchor, modelRenderable, name);
                 })
                 .exceptionally(throwable -> {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -69,7 +72,7 @@ public class ARManager {
      * @param anchor
      * @param modelRenderable
      */
-    private void addModelToScene(Anchor anchor, ModelRenderable modelRenderable) {
+    private void addModelToScene(Anchor anchor, ModelRenderable modelRenderable, String name) {
         // anchorNode will position itself based on anchor
         AnchorNode anchorNode = new AnchorNode(anchor);
         // AnchorNode cannot be zoomed in or moved so a TransformableNode is created where AnchorNode is the parent
@@ -82,5 +85,10 @@ public class ARManager {
         //adding this to the scene
         arFragment.getArSceneView().getScene().addChild(anchorNode);
         transformableNode.select();
+
+        transformableNode.setOnTouchListener((hitResult, motionEvent) -> {
+            activity.showOptionsMenu(anchorNode, name);
+            return true;
+        });
     }
 }

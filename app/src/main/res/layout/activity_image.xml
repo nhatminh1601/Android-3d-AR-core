@@ -5,8 +5,41 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    android:layout_gravity="top"
+
     <include layout="@layout/fragment_ar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnClose"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close"
+        app:backgroundTint="#fff"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        app:tint="@color/primaryTextColor" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnInfo"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_eye"
+        app:backgroundTint="#fff"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="80dp"
+        app:tint="@color/primaryTextColor" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnRemove"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        app:backgroundTint="#fff"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="80dp"
+        app:tint="@color/primaryTextColor" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
