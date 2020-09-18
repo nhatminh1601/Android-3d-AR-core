@@ -94,9 +94,10 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment implements
     public void onItemLongClick(Object o, View view) {
         Image data = (Image) o;
         Log.d("TAG", "onItemLongClick: " + data.toString());
+
         new SimpleTooltip.Builder(context)
                 .anchorView(view)
-                .text(data.getDesc())
+                .text((data.getLongDesc() != "" && data.getLongDesc() != null) ? data.getLongDesc() : data.getDesc())
                 .gravity(Gravity.TOP)
                 .animated(true)
                 .build()

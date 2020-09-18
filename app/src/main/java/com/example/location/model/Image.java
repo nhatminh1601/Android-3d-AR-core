@@ -44,7 +44,7 @@ public class Image implements Serializable {
         this.image3D = image3D;
         this.isFavourite = isFavourite;
     }
-    public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer image3D, Integer isFavourite,String longDesc) {
+    public Image(Integer id, String name, String url, String desc, Integer group, Integer image, Integer isFavourite,String longDesc) {
         this.id = id;
         this.name = name;
         this.url = url;
