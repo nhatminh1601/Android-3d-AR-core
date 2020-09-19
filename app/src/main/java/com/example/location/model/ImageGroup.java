@@ -7,7 +7,7 @@ public class ImageGroup implements Serializable {
     String name;
     String description;
     Integer image;
-    boolean isSelected = false;
+    boolean isSelected;
 
     public ImageGroup() {
     }
@@ -17,6 +17,7 @@ public class ImageGroup implements Serializable {
         this.name = name;
         this.description = description;
         this.image = image;
+        this.isSelected = false;
     }
 
     public Integer getId() {

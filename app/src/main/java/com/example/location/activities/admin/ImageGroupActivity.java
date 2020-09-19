@@ -85,6 +85,11 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
     }
 
     private void updateMuseum() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < selectedImageGroups.size(); i++) {
+            list.add(selectedImageGroups.get(i).getId());
+        }
+
         int index = -1;
         boolean isExist = false;
         for (int i = 0; i < museums.size(); i++) {
@@ -95,16 +100,11 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
             }
         }
 
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < selectedImageGroups.size(); i++) {
-            list.add(selectedImageGroups.get(i).getId());
-        }
-
         if (isExist) {
             museums.get(index).setImages(list);
+            museumsRef.setValue(museums);
+            alertDialog.show("Cập nhật thành công!");
         }
-        museumsRef.setValue(museums);
-        alertDialog.show("Cập nhật thành công!");
     }
 
     private void setAdapter() {
