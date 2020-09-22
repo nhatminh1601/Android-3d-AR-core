@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -96,16 +97,20 @@ public class AdminImageGroupAdapter extends RecyclerView.Adapter<AdminImageGroup
             description = itemView.findViewById(R.id.description);
             title = itemView.findViewById(R.id.title);
             checkBox = itemView.findViewById(R.id.checkbox);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imageGroup.setSelected(checkBox.isChecked());
+                    onItemClickListener.onItemClick(imageGroup);
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (checkBox.isChecked())
-                    {
+                    if (checkBox.isChecked()) {
                         checkBox.setChecked(false);
                         imageGroup.setSelected(false);
-                    }
-                    else
-                    {
+                    } else {
                         checkBox.setChecked(true);
                         imageGroup.setSelected(true);
                     }
