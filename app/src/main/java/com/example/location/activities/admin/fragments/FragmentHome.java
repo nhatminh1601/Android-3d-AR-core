@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,10 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
     View view;
     Context context;
     AdminActivity main;
+
+    ImageButton btnCapture;
+    ImageButton btnChoose;
+    Button btnNew;
 
     public static FragmentHome newInstance() {
         FragmentHome fragmentHome = new FragmentHome();
@@ -47,5 +53,17 @@ public class FragmentHome extends Fragment implements OnItemClickListener {
     @Override
     public void onItemClick(Object o) {
         Log.d("TAG", "test: "+o.toString());
+    }
+
+    public ImageButton getCaptureButton() {
+        return view.findViewById(R.id.btnCapture);
+    }
+
+    public ImageButton getChooseButton() {
+        return view.findViewById(R.id.btnChoose);
+    }
+
+    public Button getNewButton() {
+        return view.findViewById(R.id.saveButton);
     }
 }
