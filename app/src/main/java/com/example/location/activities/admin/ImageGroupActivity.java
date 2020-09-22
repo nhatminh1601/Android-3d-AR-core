@@ -90,20 +90,19 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
             list.add(selectedImageGroups.get(i).getId());
         }
 
-        int index = -1;
         boolean isExist = false;
         for (int i = 0; i < museums.size(); i++) {
             if (museums.get(i).getId().equals(museum.getId())) {
-                index = i;
+                museums.get(i).setImages(list);
                 isExist = true;
                 break;
             }
         }
 
         if (isExist) {
-            museums.get(index).setImages(list);
             museumsRef.setValue(museums);
             alertDialog.show("Cập nhật thành công!");
+            Log.d("TAG", "museums: " + museums.toString());
         }
     }
 

@@ -8,63 +8,6 @@
 
     <include layout="@layout/fragment_ar" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/btnClose"
-        android:layout_height="wrap_content"
-        android:src="@drawable/close"
-        app:backgroundTint="#fff"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="5dp"
-        app:tint="@color/primaryTextColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/btnInfo"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_eye"
-        app:backgroundTint="#fff"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="80dp"
-        app:tint="@color/primaryTextColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/btnRemove"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
-        app:backgroundTint="#fff"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="80dp"
-        app:tint="@color/primaryTextColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/btnSearch"
-        android:layout_height="wrap_content"
-        android:src="@drawable/search"
-        app:backgroundTint="#fff"
-        app:layout_anchor="@id/bottomAppBar"
-        app:tint="@color/primaryTextColor" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:id="@+id/BtnExitFull"
-        android:src="@drawable/fullscreen"
-        android:visibility="invisible"
-        app:elevation="0dp"
-        app:fabSize="normal"
-        app:maxImageSize="36dp"
-        app:backgroundTint="@android:color/transparent"
-        app:borderWidth="0dp"
-        app:tint="#fff" />
-
-
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         style="@style/Widget.MaterialComponents.BottomAppBar"
@@ -115,5 +58,68 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btnSearch"
+        android:layout_height="wrap_content"
+        android:src="@drawable/search"
+        app:backgroundTint="#fff"
+        app:layout_anchor="@id/bottomAppBar"
+        app:tint="@color/primaryTextColor" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:id="@+id/BtnExitFull"
+        android:src="@drawable/fullscreen"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:fabSize="normal"
+        app:maxImageSize="36dp"
+        app:backgroundTint="@android:color/transparent"
+        app:borderWidth="0dp"
+        app:tint="#fff" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/ic_delete"
+            app:backgroundTint="#fff"
+            app:tint="@color/primaryTextColor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="80dp"
+            android:src="@drawable/ic_eye"
+            app:backgroundTint="#fff"
+            app:tint="@color/primaryTextColor" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:outlineProvider="none"
+            android:src="@drawable/close"
+            app:backgroundTint="@android:color/transparent"
+            app:tint="#fff" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
