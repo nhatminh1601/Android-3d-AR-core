@@ -66,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                users = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     User user = child.getValue(User.class);
                     if(user != null){

@@ -119,6 +119,14 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ( museumsRef != null ) {
+            getMuseumList();
+        }
+    }
+
     private void updateMuseum(String name, String type, String desc, String url) {
         if (!checkEmpty(name, type)) {
             return;
@@ -321,6 +329,7 @@ public class AdminActivity extends AppCompatActivity {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                museums = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Museum museum = child.getValue(Museum.class);
                     if(museum != null){

@@ -142,6 +142,7 @@ public class WelcomeActivity extends AppCompatActivity {
         museumsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                museums = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Museum museum = child.getValue(Museum.class);
                     if(museum != null){

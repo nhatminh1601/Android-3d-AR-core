@@ -47,6 +47,7 @@ public class ImageActivity extends AppCompatActivity implements OnItemClickListe
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                images = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Image image = child.getValue(Image.class);
                     if(image != null && image.getGroup().equals(imageGroup.getId())){

@@ -123,6 +123,7 @@ public class ImageActivity extends AppCompatActivity {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                images = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Image img = child.getValue(Image.class);
                     if (img != null && img.getGroup().equals(image.getGroup())) {

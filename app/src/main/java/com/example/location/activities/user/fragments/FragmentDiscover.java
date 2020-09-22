@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 public class FragmentDiscover extends Fragment implements OnItemClickListener {
     DatabaseReference museumsRef = FirebaseDatabase.getInstance().getReference("museums");
+    ValueEventListener valueEventListener;
     Context context;
     MainActivity main;
     RecyclerView recyclerView;
@@ -54,6 +55,14 @@ public class FragmentDiscover extends Fragment implements OnItemClickListener {
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if ( museumsRef != null ) {
+            museumsRef.removeEventListener(valueEventListener);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +75,7 @@ public class FragmentDiscover extends Fragment implements OnItemClickListener {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                museums = new ArrayList<>();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Museum museum = child.getValue(Museum.class);
                     if(museum != null){
@@ -81,6 +91,7 @@ public class FragmentDiscover extends Fragment implements OnItemClickListener {
                 Log.w("TAG", "Failed to read value.", error.toException());
             }
         };
+        valueEventListener = eventListener;
         museumsRef.addValueEventListener(eventListener);
     }
 
