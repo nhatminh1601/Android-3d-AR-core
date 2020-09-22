@@ -63,6 +63,8 @@
         android:id="@+id/btnSearch"
         android:layout_height="wrap_content"
         android:src="@drawable/search"
+        android:elevation="100dp"
+        app:elevation="100dp"
         app:backgroundTint="#fff"
         app:layout_anchor="@id/bottomAppBar"
         app:tint="@color/primaryTextColor" />
@@ -84,6 +86,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="100dp"
+        app:elevation="100dp"
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
