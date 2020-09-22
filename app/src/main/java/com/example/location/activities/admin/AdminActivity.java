@@ -242,7 +242,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void setView(Fragment fragment) {
-        if (fragment == fragmentHome) {
+        if (fragment.equals(fragmentHome)) {
             btnCapture = findViewById(R.id.btnCapture);
             btnChoose= findViewById(R.id.btnChoose);
             imgPicture=findViewById(R.id.imgPicture);
@@ -271,8 +271,8 @@ public class AdminActivity extends AppCompatActivity {
                 }
             });
         }
-        if (fragment == fragmentCreature) {
-            floatingActionButton = findViewById(R.id.floating_action_button);
+        if (fragment.equals(fragmentCreature)) {
+            floatingActionButton = fragmentCreature.getButton();
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -80,6 +80,10 @@ public class FragmentCreature extends Fragment implements OnItemClickListener {
         imageGroupAdapter.notifyDataSetChanged();
     }
 
+    public FloatingActionButton getButton() {
+        return view.findViewById(R.id.floating_action_button);
+    }
+
     private void setImageGroup(Museum museum) {
         if (museum == null || museum.getImages() == null) {
             return;
