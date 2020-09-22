@@ -72,7 +72,6 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
         private RecyclerView childRecyclerView;
         boolean isActive = false;
         Integer groupId;
-        ArrayList<Integer> favorites = new ArrayList<>();
 
         MyViewHolder(final View itemView) {
             super(itemView);
@@ -85,21 +84,14 @@ public class ParentImageAdapter extends RecyclerView.Adapter<ParentImageAdapter.
                 @Override
                 public void onClick(View view) {
                     if (isActive){
-                        for (int i = 0; i < favorites.size(); i++) {
-                            if (favorites.get(i).equals(groupId)) {
-                                favorites.remove(i);
-                                break;
-                            }
-                        }
                         favoriteButton.setImageResource(R.drawable.ic__favorite_border);
                         isActive = false;
                     }
                     else {
-                        favorites.add(groupId);
                         favoriteButton.setImageResource(R.drawable.ic__favorite);
                         isActive = true;
                     }
-                    activity.onFavoriteClick(favorites);
+                    activity.onFavoriteClick(groupId);
                 }
             });
         }

@@ -243,15 +243,15 @@ public class AdminActivity extends AppCompatActivity {
 
     private void setView(Fragment fragment) {
         if (fragment.equals(fragmentHome)) {
-            btnCapture = findViewById(R.id.btnCapture);
-            btnChoose= findViewById(R.id.btnChoose);
+            btnCapture = fragmentHome.getCaptureButton();
+            btnChoose= fragmentHome.getChooseButton();
             imgPicture=findViewById(R.id.imgPicture);
             extName = findViewById(R.id.editTextName);
             extType = findViewById(R.id.editTextType);
             setupAutoComplete(extType, museumTypes);
             extDesc = findViewById(R.id.editTextDesc);
             extUrl = findViewById(R.id.editTextUrl);
-            btnNew = findViewById(R.id.saveButton);
+            btnNew = fragmentHome.getNewButton();
             btnNew.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

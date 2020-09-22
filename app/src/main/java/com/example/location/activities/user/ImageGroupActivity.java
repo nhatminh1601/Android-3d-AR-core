@@ -170,11 +170,15 @@ public class ImageGroupActivity extends AppCompatActivity implements OnItemClick
         return favorites;
     }
 
-    public void onFavoriteClick(ArrayList<Integer> arrayList) {
-        ArrayList<String> favorites = new ArrayList<>();
-        for (int i = 0; i < arrayList.size(); i++) {
-            favorites.add(arrayList.get(i).toString());
+    public void onFavoriteClick(Integer groupId) {
+        ArrayList<String> favorites = getFavorites();
+        if (favorites.contains(groupId.toString())) {
+            favorites.remove(groupId.toString());
         }
+        else {
+            favorites.add(groupId.toString());
+        }
+
         saveFavorites(favorites);
     }
 
