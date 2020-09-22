@@ -1,57 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.location">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera.ar"
-        android:value="required" /> <!-- Sceneform requires OpenGL ES 3.0 or later. -->
-    <uses-feature
-        android:glEsVersion="0x00030000"
         android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_main"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".DrawsActivity"  android:theme="@style/TooBar"></activity>
-        <activity android:name=".HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".AdminActivity" />
-        <activity
-            android:name=".PlacesActivity"
-            android:theme="@style/TooBar" />
-        <activity
-            android:name=".PlaceActivity"
-            android:theme="@style/TooBar" />
-        <activity
-            android:name=".AddPlaceActivity"
-            android:theme="@style/TooBar" />
-        <activity android:name=".CameraAdminActivity" />
-        <activity android:name=".CameraUserActivity" />
-
+        android:theme="@style/AppTheme"
+        tools:targetApi="q">
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
         <meta-data
             android:name="com.google.android.ar.API_KEY"
             android:value="AIzaSyAEDbwcHfxrK8SzBwcHW9To54i95rWo8yE" />
+
+        <activity
+            android:name=".activities.user.ImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_image"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".activities.user.ImageGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".activities.user.MuseumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".activities.user.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.user.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.AdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.ImageGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.admin.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.ar.codelab.name.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

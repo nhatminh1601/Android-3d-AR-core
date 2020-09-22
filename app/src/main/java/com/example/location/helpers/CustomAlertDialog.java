@@ -2,8 +2,6 @@ package com.example.location.helpers;
 
 import android.content.Context;
 
-import com.example.location.LoginActivity;
-
 public class CustomAlertDialog {
     Context context;
 
